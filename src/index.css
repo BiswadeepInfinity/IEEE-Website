@@ -39,96 +39,93 @@ body {
   color: var(--ink-black);
   font-family: var(--font-comic);
   min-height: 100vh;
-  overflow: hidden;
+  min-height: 100dvh;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Wobbly sketch borders & Cartoon Shadows */
 .sketch-box {
   background: var(--paper-cream);
-  border: 3.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  box-shadow: 6px 6px 0px var(--sketch-shadow);
+  box-shadow: 4px 4px 0px var(--sketch-shadow);
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .sketch-box:hover {
-  box-shadow: 8px 8px 0px var(--sketch-shadow);
-  transform: translate(-2px, -2px) rotate(0.3deg);
+  box-shadow: 6px 6px 0px var(--sketch-shadow);
+  transform: translate(-1px, -1px);
 }
 
 .sketch-box-yellow {
   background: #fff8d6;
-  border: 3.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 20px 245px 20px 255px/240px 20px 250px 20px;
-  box-shadow: 5px 5px 0px var(--ink-black);
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-blue {
   background: #e8f5ff;
-  border: 3.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 250px 20px 240px 20px/20px 245px 20px 255px;
-  box-shadow: 5px 5px 0px var(--ink-black);
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-pink {
   background: #ffe8f2;
-  border: 3.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 255px 20px 225px 15px/15px 225px 20px 255px;
-  box-shadow: 5px 5px 0px var(--ink-black);
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-green {
   background: #e6fcf2;
-  border: 3.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 20px 255px 20px 240px/250px 20px 245px 20px;
-  box-shadow: 5px 5px 0px var(--ink-black);
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-purple {
   background: #f4ecff;
-  border: 3.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 245px 18px 230px 22px/22px 235px 18px 250px;
-  box-shadow: 5px 5px 0px var(--ink-black);
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-btn {
   font-family: var(--font-sketch);
   font-weight: 800;
-  font-size: 1.15rem;
-  letter-spacing: 0.5px;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
   background: var(--sunny-yellow);
   color: var(--ink-black);
-  border: 3px solid var(--ink-black);
+  border: 2.5px solid var(--ink-black);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  padding: 10px 22px;
+  padding: 8px 16px;
   cursor: pointer;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 3px 3px 0px var(--ink-black);
   transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-}
-
-.sketch-btn:hover {
-  transform: translate(-2px, -2px) scale(1.03);
-  box-shadow: 6px 6px 0px var(--ink-black);
+  gap: 6px;
+  touch-action: manipulation;
 }
 
 .sketch-btn:active {
-  transform: translate(3px, 3px);
+  transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px var(--ink-black);
 }
 
 .sketch-badge {
   font-family: var(--font-cray);
   display: inline-block;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border: 2px dashed var(--ink-black);
   background: white;
-  border-radius: 12px;
-  transform: rotate(-2deg);
+  border-radius: 10px;
   font-weight: bold;
+  font-size: 0.85rem;
 }
 
 .doodle-underline {
@@ -139,25 +136,24 @@ body {
 .doodle-underline::after {
   content: '';
   position: absolute;
-  left: -4px;
-  right: -4px;
+  left: -2px;
+  right: -2px;
   bottom: 0px;
-  height: 6px;
+  height: 5px;
   background: var(--sunny-yellow);
   z-index: -1;
-  border-radius: 4px;
-  transform: rotate(-1deg);
+  border-radius: 3px;
 }
 
 .tape-top {
   position: absolute;
-  top: -14px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%) rotate(-3deg);
-  width: 90px;
-  height: 24px;
+  width: 70px;
+  height: 20px;
   background: rgba(255, 235, 130, 0.7);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   border-left: 2px dashed rgba(0,0,0,0.2);
   border-right: 2px dashed rgba(0,0,0,0.2);
   z-index: 10;
@@ -165,20 +161,20 @@ body {
 
 .paperclip {
   position: absolute;
-  top: -15px;
-  right: 25px;
-  width: 20px;
-  height: 40px;
-  border: 3.5px solid #666;
-  border-radius: 12px 12px 0 0;
+  top: -12px;
+  left: 20px;
+  width: 16px;
+  height: 32px;
+  border: 3px solid #666;
+  border-radius: 10px 10px 0 0;
   z-index: 12;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 /* Animations */
 @keyframes scribble-float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-5px) rotate(1deg); }
+  50% { transform: translateY(-4px) rotate(0.8deg); }
 }
 
 .float-wiggle {
@@ -187,14 +183,13 @@ body {
 
 @keyframes pulse-pop {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+  50% { transform: scale(1.04); }
 }
 
 .pop-pulse {
   animation: pulse-pop 2s ease-in-out infinite;
 }
 
-/* Sound and drawing canvas controls */
 .slide-canvas {
   position: absolute;
   top: 0;
@@ -244,55 +239,35 @@ body {
 
 @keyframes eraserBlockMoveForward {
   0% {
-    left: -120px;
-    top: 10%;
+    left: -80px;
+    top: 15%;
     transform: rotate(-15deg);
   }
-  25% {
-    left: 25%;
-    top: 60%;
-    transform: rotate(18deg) scale(1.1);
-  }
   50% {
-    left: 55%;
-    top: 20%;
-    transform: rotate(-20deg) scale(1.15);
-  }
-  75% {
-    left: 80%;
-    top: 70%;
+    left: 50%;
+    top: 50%;
     transform: rotate(15deg) scale(1.1);
   }
   100% {
-    left: calc(100% + 120px);
-    top: 30%;
+    left: calc(100% + 80px);
+    top: 25%;
     transform: rotate(-10deg);
   }
 }
 
 @keyframes eraserBlockMoveBackward {
   0% {
-    left: calc(100% + 120px);
-    top: 30%;
+    left: calc(100% + 80px);
+    top: 25%;
     transform: rotate(10deg);
   }
-  25% {
-    left: 75%;
-    top: 70%;
-    transform: rotate(-18deg) scale(1.1);
-  }
   50% {
-    left: 45%;
-    top: 20%;
-    transform: rotate(20deg) scale(1.15);
-  }
-  75% {
-    left: 20%;
-    top: 65%;
+    left: 50%;
+    top: 50%;
     transform: rotate(-15deg) scale(1.1);
   }
   100% {
-    left: -120px;
+    left: -80px;
     top: 15%;
     transform: rotate(15deg);
   }
@@ -304,11 +279,11 @@ body {
     opacity: 0.9;
   }
   50% {
-    transform: translate(calc(var(--dx, 20px)), calc(var(--dy, -30px))) scale(1.2);
+    transform: translate(calc(var(--dx, 15px)), calc(var(--dy, -20px))) scale(1.1);
     opacity: 0.8;
   }
   100% {
-    transform: translate(calc(var(--dx, 40px) * 1.5), calc(var(--dy, -60px) * 1.5)) scale(0);
+    transform: translate(calc(var(--dx, 30px) * 1.5), calc(var(--dy, -40px) * 1.5)) scale(0);
     opacity: 0;
   }
 }
@@ -325,26 +300,26 @@ body {
 }
 
 .eraser-overlay.forward {
-  animation: eraserWipeForward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserWipeForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .eraser-overlay.backward {
-  animation: eraserWipeBackward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserWipeBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .eraser-tool {
   position: absolute;
-  width: 90px;
-  height: 48px;
+  width: 70px;
+  height: 38px;
   background: #ff5e97;
-  border: 3.5px solid #1e1b18;
-  border-radius: 8px 16px 8px 16px;
-  box-shadow: 6px 6px 0px #1e1b18;
+  border: 2.5px solid #1e1b18;
+  border-radius: 6px 12px 6px 12px;
+  box-shadow: 4px 4px 0px #1e1b18;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-cray);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: white;
   z-index: 1001;
@@ -357,18 +332,18 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 32px;
+  width: 24px;
   background: #3ba4ff;
-  border-right: 3px solid #1e1b18;
-  border-radius: 4px 0 0 4px;
+  border-right: 2px solid #1e1b18;
+  border-radius: 3px 0 0 3px;
 }
 
 .eraser-tool.forward {
-  animation: eraserBlockMoveForward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserBlockMoveForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .eraser-tool.backward {
-  animation: eraserBlockMoveBackward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserBlockMoveBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .dust-particle {
@@ -376,98 +351,82 @@ body {
   background: #d5cbba;
   border: 1px solid #1e1b18;
   border-radius: 50%;
-  animation: eraserDustFly 0.5s ease-out forwards;
+  animation: eraserDustFly 0.45s ease-out forwards;
   pointer-events: none;
 }
 
 /* =========================================================
-   SCIENTIST PEEK-A-BOO ANIMATION BEHIND BOARD
+   MOBILE RESPONSIVENESS (VERTICAL PHONES & TABLETS)
    ========================================================= */
-@keyframes scientistPeekRight {
-  0% {
-    right: -120px;
-    transform: translateY(0) rotate(8deg) scale(0.85);
-    opacity: 0;
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
   }
-  15% {
-    right: -42px;
-    transform: translateY(-8px) rotate(4deg) scale(1.05);
-    opacity: 1;
-  }
-  35% {
-    right: -30px;
-    transform: translateY(-12px) rotate(2deg) scale(1.1);
-    opacity: 1;
-  }
-  65% {
-    right: -32px;
-    transform: translateY(-8px) rotate(4deg) scale(1.08);
-    opacity: 1;
-  }
-  85% {
-    right: -45px;
-    transform: translateY(-4px) rotate(2deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    right: -130px;
-    transform: translateY(0) rotate(12deg) scale(0.85);
-    opacity: 0;
-  }
-}
 
-@keyframes scientistPeekLeft {
-  0% {
-    left: -120px;
-    transform: translateY(0) rotate(-8deg) scale(0.85);
-    opacity: 0;
+  .slide-container-card {
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    padding: 14px 10px !important;
+    border-width: 3px !important;
+    border-radius: 16px !important;
+    box-shadow: 4px 4px 0px #1e1b18 !important;
   }
-  15% {
-    left: -42px;
-    transform: translateY(-8px) rotate(-4deg) scale(1.05);
-    opacity: 1;
-  }
-  35% {
-    left: -30px;
-    transform: translateY(-12px) rotate(-2deg) scale(1.1);
-    opacity: 1;
-  }
-  65% {
-    left: -32px;
-    transform: translateY(-8px) rotate(-4deg) scale(1.08);
-    opacity: 1;
-  }
-  85% {
-    left: -45px;
-    transform: translateY(-4px) rotate(-2deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    left: -130px;
-    transform: translateY(0) rotate(-12deg) scale(0.85);
-    opacity: 0;
-  }
-}
 
-.peek-scientist-right {
-  animation: scientistPeekRight 4.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
+  .mobile-stack {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
 
-.peek-scientist-left {
-  animation: scientistPeekLeft 4.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  .mobile-grid-2 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .mobile-grid-1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .mobile-h2 {
+    font-size: 1.4rem !important;
+  }
+
+  .mobile-h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .mobile-text-sm {
+    font-size: 0.9rem !important;
+  }
+
+  .mobile-scroll-x {
+    display: flex !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding-bottom: 6px !important;
+    scrollbar-width: thin;
+  }
 }
 
 /* Custom Scrollbar for cartoon look */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #f1ebd9;
-  border-left: 2px solid var(--ink-black);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--tangy-orange);
-  border: 2px solid var(--ink-black);
+  border: 1.5px solid var(--ink-black);
   border-radius: 10px;
 }

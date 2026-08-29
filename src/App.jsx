@@ -20,7 +20,7 @@ export default function App() {
   const [showOverview, setShowOverview] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
   const [showPresenterNotes, setShowPresenterNotes] = useState(false);
-  const [showTutorial, setShowTutorial] = useState(true);
+  const [showTutorial, setShowTutorial] = useState(false); // Can be opened via Guide button
   
   // Eraser Transition State
   const [isErasing, setIsErasing] = useState(false);
@@ -71,25 +71,25 @@ export default function App() {
     setIsErasing(true);
     setEraseDirection(direction);
 
-    const newDust = Array.from({ length: 16 }).map((_, i) => ({
+    const newDust = Array.from({ length: 12 }).map((_, i) => ({
       id: i,
       left: `${20 + Math.random() * 60}%`,
       top: `${20 + Math.random() * 60}%`,
-      size: `${6 + Math.random() * 8}px`,
-      dx: `${(Math.random() - 0.5) * 80}px`,
-      dy: `${-20 - Math.random() * 50}px`
+      size: `${5 + Math.random() * 6}px`,
+      dx: `${(Math.random() - 0.5) * 60}px`,
+      dy: `${-15 - Math.random() * 40}px`
     }));
     setDustParticles(newDust);
 
     setTimeout(() => {
       setCurrentSlide(nextIdx);
       clearCanvas();
-    }, 320);
+    }, 280);
 
     setTimeout(() => {
       setIsErasing(false);
       setDustParticles([]);
-    }, 650);
+    }, 550);
   };
 
   const nextSlide = () => {
@@ -175,8 +175,10 @@ export default function App() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     ctx.lineWidth = 3.5;
     ctx.lineCap = 'round';
@@ -208,54 +210,53 @@ export default function App() {
   return (
     <div style={{
       width: '100vw',
-      height: '100vh',
+      minHeight: '100vh',
+      minHeight: '100dvh',
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      overflow: 'hidden',
       background: '#f8f4e9'
     }}>
-      {/* Top Header with University Branding & Controls */}
+      {/* Responsive Top Header */}
       <header style={{
-        height: '74px',
-        padding: '0 22px',
+        minHeight: '56px',
+        padding: '6px 12px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: '3.5px solid #1e1b18',
+        flexWrap: 'wrap',
+        gap: '6px',
+        borderBottom: '3px solid #1e1b18',
         background: '#fffdf7',
         zIndex: 50,
-        boxShadow: '0 4px 0px rgba(30, 27, 24, 0.1)'
+        boxShadow: '0 3px 0px rgba(30, 27, 24, 0.1)'
       }}>
         {/* University Logo & Branch Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
             background: '#fff',
-            padding: '5px 14px',
-            borderRadius: '12px',
-            border: '2.5px solid #1e1b18',
-            boxShadow: '3px 3px 0px #1e1b18',
+            padding: '3px 8px',
+            borderRadius: '8px',
+            border: '2px solid #1e1b18',
+            boxShadow: '2px 2px 0px #1e1b18',
             display: 'flex',
             alignItems: 'center',
-            height: '52px'
+            height: '38px'
           }}>
             <img 
               src="/uttaranchal-logo.svg" 
               alt="Uttaranchal University NAAC Grade A+" 
-              style={{ height: '44px', width: 'auto', display: 'block' }} 
+              style={{ height: '30px', width: 'auto', display: 'block' }} 
             />
           </div>
 
-          <div className="sketch-badge" style={{ background: '#3ba4ff', color: '#fff', fontSize: '1.05rem', padding: '6px 14px', border: '2.5px solid #1e1b18' }}>
-            ✏️ IEEE STUDENT BRANCH
+          <div className="sketch-badge" style={{ background: '#3ba4ff', color: '#fff', fontSize: '0.8rem', padding: '4px 8px', border: '2px solid #1e1b18' }}>
+            ✏️ IEEE
           </div>
-          <span style={{ fontFamily: 'var(--font-cray)', fontSize: '1.25rem', color: '#1e1b18', marginLeft: '4px' }}>
-            {slidesData[currentSlide].title}
-          </span>
         </div>
 
         {/* Toolbar Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexWrap: 'wrap' }}>
           <DoodlerToolbar
             isDrawing={isDrawing}
             setIsDrawing={setIsDrawing}
@@ -265,83 +266,68 @@ export default function App() {
           />
 
           <button
-            onClick={() => setShowTutorial(true)}
-            className="sketch-btn"
-            style={{ padding: '6px 12px', fontSize: '0.85rem', background: '#ffe8f2', color: '#ff334b' }}
-            title="Open Interactive Secrets Guide (Key '?')"
-          >
-            <QuestionIcon size={15} /> Guide
-          </button>
-
-          <button
             onClick={() => setShowOverview(true)}
             className="sketch-btn"
-            style={{ padding: '6px 12px', fontSize: '0.85rem', background: '#e8f5ff' }}
+            style={{ padding: '5px 8px', fontSize: '0.8rem', background: '#e8f5ff' }}
             title="View All Slides Grid"
           >
-            <Grid size={15} /> Slides ({currentSlide + 1}/15)
+            <Grid size={14} /> ({currentSlide + 1}/15)
           </button>
 
           <button
             onClick={() => setShowPresenterNotes(!showPresenterNotes)}
-            className="sketch-btn"
-            style={{ padding: '6px 12px', fontSize: '0.85rem', background: showPresenterNotes ? '#ff5e97' : '#fff', color: showPresenterNotes ? '#fff' : '#1e1b18' }}
+            className="sketch-btn mobile-hide"
+            style={{ padding: '5px 8px', fontSize: '0.8rem', background: showPresenterNotes ? '#ff5e97' : '#fff', color: showPresenterNotes ? '#fff' : '#1e1b18' }}
             title="Toggle Presenter Speaker Notes (Key 'N')"
           >
-            <BookOpen size={15} /> {showPresenterNotes ? 'Notes ON' : 'Notes'}
-          </button>
-
-          <button
-            onClick={() => setAutoPlay(!autoPlay)}
-            className="sketch-btn"
-            style={{ padding: '6px 12px', fontSize: '0.85rem', background: autoPlay ? '#2ecc71' : '#fff', color: autoPlay ? '#fff' : '#1e1b18' }}
-            title="Auto-advance slides every 8s"
-          >
-            {autoPlay ? <Pause size={15} /> : <Play size={15} />} {autoPlay ? 'Auto ON' : 'Auto'}
+            <BookOpen size={14} /> Notes
           </button>
 
           <button
             onClick={toggleFullscreen}
-            className="sketch-btn"
-            style={{ padding: '6px 10px', fontSize: '0.85rem', background: '#fff' }}
+            className="sketch-btn mobile-hide"
+            style={{ padding: '5px 8px', fontSize: '0.8rem', background: '#fff' }}
             title="Toggle Fullscreen (Key 'F')"
           >
-            {isFullscreen ? <Minimize size={15} /> : <Maximize size={15} />}
+            {isFullscreen ? <Minimize size={14} /> : <Maximize size={14} />}
           </button>
         </div>
       </header>
 
-      {/* Main Slide Presentation Stage */}
+      {/* Main Slide Presentation Stage with Auto-Scroll for Mobile Vertical Screens */}
       <main style={{
         flex: 1,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '12px 20px',
-        position: 'relative'
+        padding: '8px 10px',
+        position: 'relative',
+        overflowY: 'auto'
       }}>
         {/* The Slide Paper Card */}
-        <div style={{
-          width: '100%',
-          maxWidth: '1240px',
-          height: '100%',
-          maxHeight: '760px',
-          background: '#fffdf7',
-          border: '4px solid #1e1b18',
-          borderRadius: '255px 15px 225px 15px/15px 225px 15px 255px',
-          boxShadow: '10px 10px 0px #1e1b18',
-          position: 'relative',
-          padding: '22px 24px',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
+        <div 
+          className="slide-container-card"
+          style={{
+            width: '100%',
+            maxWidth: '1200px',
+            minHeight: '520px',
+            background: '#fffdf7',
+            border: '3.5px solid #1e1b18',
+            borderRadius: '255px 15px 225px 15px/15px 225px 15px 255px',
+            boxShadow: '8px 8px 0px #1e1b18',
+            position: 'relative',
+            padding: '16px 20px',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
           {/* Paper Clips & Notebook Tape Decoration */}
           <div className="tape-top"></div>
-          <div className="paperclip" style={{ right: 'auto', left: '30px' }}></div>
+          <div className="paperclip"></div>
 
           {/* Active Slide Content */}
-          <div style={{ flex: 1, position: 'relative', zIndex: 10, height: '100%' }}>
+          <div style={{ flex: 1, position: 'relative', zIndex: 10, width: '100%' }}>
             {slidesData[currentSlide].component}
           </div>
 
@@ -350,7 +336,7 @@ export default function App() {
             <>
               <div className={`eraser-overlay ${eraseDirection}`} />
               <div className={`eraser-tool ${eraseDirection}`}>
-                <span style={{ position: 'relative', zIndex: 2, marginLeft: '22px' }}>ERASING...</span>
+                <span style={{ position: 'relative', zIndex: 2, marginLeft: '16px' }}>ERASING...</span>
               </div>
               {dustParticles.map(p => (
                 <div
@@ -376,6 +362,9 @@ export default function App() {
             onMouseUp={stopDrawing}
             onMouseLeave={stopDrawing}
             onMouseMove={draw}
+            onTouchStart={startDrawing}
+            onTouchEnd={stopDrawing}
+            onTouchMove={draw}
             className={`slide-canvas ${isDrawing ? 'drawing-active' : ''}`}
           />
         </div>
@@ -391,40 +380,41 @@ export default function App() {
       {showPresenterNotes && (
         <div style={{
           position: 'fixed',
-          bottom: '80px',
+          bottom: '70px',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '90%',
-          maxWidth: '900px',
+          width: '94%',
+          maxWidth: '800px',
           background: '#fff8d6',
-          border: '3.5px solid #1e1b18',
-          borderRadius: '16px',
-          padding: '16px 24px',
-          boxShadow: '8px 8px 0px #1e1b18',
+          border: '3px solid #1e1b18',
+          borderRadius: '14px',
+          padding: '12px 18px',
+          boxShadow: '6px 6px 0px #1e1b18',
           zIndex: 800
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span style={{ fontFamily: 'var(--font-cray)', fontSize: '1.2rem', color: '#ff334b' }}>
-              🎙️ Speaker / Presenter Script Note for Slide {currentSlide + 1}:
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+            <span style={{ fontFamily: 'var(--font-cray)', fontSize: '1.05rem', color: '#ff334b' }}>
+              🎙️ Speaker Note for Slide {currentSlide + 1}:
             </span>
             <button onClick={() => setShowPresenterNotes(false)} className="sketch-badge" style={{ cursor: 'pointer' }}>Close ✕</button>
           </div>
-          <p style={{ fontFamily: 'var(--font-comic)', fontSize: '1.2rem', fontWeight: 600, color: '#1e1b18' }}>
+          <p style={{ fontFamily: 'var(--font-comic)', fontSize: '1.05rem', fontWeight: 600, color: '#1e1b18' }}>
             {presenterNotes[currentSlide]}
           </p>
         </div>
       )}
 
-      {/* Bottom Floating Navigation Bar */}
+      {/* Responsive Bottom Floating Navigation Bar */}
       <footer style={{
-        height: '66px',
-        padding: '0 24px',
+        minHeight: '58px',
+        padding: '6px 14px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         background: '#fffdf7',
-        borderTop: '3.5px solid #1e1b18',
-        zIndex: 50
+        borderTop: '3px solid #1e1b18',
+        zIndex: 50,
+        gap: '6px'
       }}>
         <button
           onClick={prevSlide}
@@ -433,15 +423,17 @@ export default function App() {
           style={{
             opacity: currentSlide === 0 ? 0.4 : 1,
             cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
-            background: '#ffdf40'
+            background: '#ffdf40',
+            padding: '6px 12px',
+            fontSize: '0.85rem'
           }}
         >
-          <ChevronLeft size={20} /> Previous
+          <ChevronLeft size={18} /> Prev
         </button>
 
         {/* Slide Progress Dots / Ticks & University Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', maxWidth: '60%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {slidesData.map((_, idx) => (
               <button
                 key={idx}
@@ -451,12 +443,13 @@ export default function App() {
                   }
                 }}
                 style={{
-                  width: currentSlide === idx ? '32px' : '14px',
-                  height: '14px',
-                  borderRadius: '8px',
+                  width: currentSlide === idx ? '22px' : '10px',
+                  height: '10px',
+                  borderRadius: '5px',
                   backgroundColor: currentSlide === idx ? '#ff334b' : '#d2c9b8',
-                  border: '2px solid #1e1b18',
+                  border: '1.5px solid #1e1b18',
                   cursor: 'pointer',
+                  padding: 0,
                   transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                 }}
                 title={`Jump to Slide ${idx + 1}`}
@@ -464,21 +457,15 @@ export default function App() {
             ))}
           </div>
 
-          <div style={{
+          <div className="mobile-hide" style={{
             background: '#fff',
             border: '2px solid #1e1b18',
-            borderRadius: '8px',
-            padding: '2px 8px',
+            borderRadius: '6px',
+            padding: '2px 6px',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
-            boxShadow: '2px 2px 0px #1e1b18'
+            gap: '4px'
           }}>
-            <img 
-              src="/uttaranchal-logo.svg" 
-              alt="Uttaranchal University" 
-              style={{ height: '20px', width: 'auto' }} 
-            />
             <span style={{ fontFamily: 'var(--font-sketch)', fontSize: '0.75rem', fontWeight: 800, color: '#005a9c' }}>
               UU-SB
             </span>
@@ -493,10 +480,12 @@ export default function App() {
             opacity: currentSlide === slidesData.length - 1 ? 0.4 : 1,
             cursor: currentSlide === slidesData.length - 1 ? 'not-allowed' : 'pointer',
             background: '#2ecc71',
-            color: '#fff'
+            color: '#fff',
+            padding: '6px 12px',
+            fontSize: '0.85rem'
           }}
         >
-          Next <ChevronRight size={20} />
+          Next <ChevronRight size={18} />
         </button>
       </footer>
 
@@ -513,33 +502,33 @@ export default function App() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '24px'
+          padding: '16px'
         }}>
           <div style={{
             background: '#f8f4e9',
             width: '95%',
-            maxWidth: '1100px',
+            maxWidth: '1000px',
             maxHeight: '90vh',
-            borderRadius: '20px',
-            border: '4px solid #1e1b18',
-            padding: '24px',
+            borderRadius: '16px',
+            border: '3.5px solid #1e1b18',
+            padding: '16px',
             overflowY: 'auto',
-            boxShadow: '12px 12px 0px #1e1b18'
+            boxShadow: '8px 8px 0px #1e1b18'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
-              <h2 style={{ fontFamily: 'var(--font-cray)', fontSize: '2.2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <h2 style={{ fontFamily: 'var(--font-cray)', fontSize: '1.8rem' }}>
                 📑 All 15 Slides Overview
               </h2>
               <button
                 onClick={() => setShowOverview(false)}
                 className="sketch-btn"
-                style={{ background: '#ff334b', color: '#fff' }}
+                style={{ background: '#ff334b', color: '#fff', padding: '4px 10px', fontSize: '0.85rem' }}
               >
                 Close ✕
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '14px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '10px' }}>
               {slidesData.map((s, idx) => (
                 <div
                   key={idx}
@@ -551,17 +540,17 @@ export default function App() {
                   }}
                   className="sketch-box"
                   style={{
-                    padding: '12px',
+                    padding: '8px',
                     cursor: 'pointer',
                     background: currentSlide === idx ? '#ffdf40' : '#fff',
-                    border: currentSlide === idx ? '3.5px solid #ff334b' : '2.5px solid #1e1b18',
-                    transform: currentSlide === idx ? 'scale(1.04)' : 'none'
+                    border: currentSlide === idx ? '3px solid #ff334b' : '2px solid #1e1b18',
+                    transform: currentSlide === idx ? 'scale(1.02)' : 'none'
                   }}
                 >
-                  <span className="sketch-badge" style={{ fontSize: '0.8rem', marginBottom: '6px' }}>
+                  <span className="sketch-badge" style={{ fontSize: '0.7rem', padding: '1px 6px', marginBottom: '4px' }}>
                     Slide {idx + 1}
                   </span>
-                  <div style={{ fontWeight: 'bold', fontSize: '0.95rem', marginTop: '4px' }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '0.82rem', marginTop: '2px', lineHeight: 1.15 }}>
                     {s.title.replace(/Slide \d+: /, '')}
                   </div>
                 </div>
