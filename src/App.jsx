@@ -6,6 +6,7 @@ import {
 import confetti from 'canvas-confetti';
 import { DoodlerToolbar } from './components/DoodlerToolbar';
 import { TutorialModal } from './components/TutorialModal';
+import { MobilePresentationView } from './components/MobilePresentationView';
 import { 
   Slide1, Slide2, Slide3, Slide4, Slide5, 
   Slide6, Slide7, Slide8, Slide9, Slide10, 
@@ -21,6 +22,7 @@ export default function App() {
   const [autoPlay, setAutoPlay] = useState(false);
   const [showPresenterNotes, setShowPresenterNotes] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
   // Eraser Transition State
   const [isErasing, setIsErasing] = useState(false);
@@ -28,6 +30,14 @@ export default function App() {
 
   const canvasRef = useRef(null);
   const isPaintingRef = useRef(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const slidesData = [
     { title: "Slide 1: Engineer Your Future", component: <Slide1 /> },
@@ -73,11 +83,11 @@ export default function App() {
     setTimeout(() => {
       setCurrentSlide(nextIdx);
       clearCanvas();
-    }, 250);
+    }, 220);
 
     setTimeout(() => {
       setIsErasing(false);
-    }, 500);
+    }, 450);
   };
 
   const nextSlide = () => {
@@ -92,6 +102,7 @@ export default function App() {
     }
   };
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (showTutorial) {
@@ -126,6 +137,7 @@ export default function App() {
     }
   };
 
+  // Drawing helpers
   const startDrawing = (e) => {
     if (!isDrawing) return;
     isPaintingRef.current = true;
@@ -171,26 +183,17 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-    }
-  }, [isFullscreen, currentSlide]);
-
   return (
     <div style={{
       width: '100%',
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
-      position: 'relative',
       background: '#f8f4e9'
     }}>
-      {/* Top Header - Auto wrap rows for mobile */}
-      <header className="app-header" style={{
-        padding: '8px 16px',
+      {/* Universal Top Header */}
+      <header style={{
+        padding: isMobile ? '8px 12px' : '10px 20px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -198,229 +201,190 @@ export default function App() {
         background: '#fffdf7',
         zIndex: 50
       }}>
-        {/* Row 1 on mobile: Logo + Title */}
-        <div className="header-top-row" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Logo & University Brand */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
             background: '#fff',
-            padding: '2px 6px',
-            borderRadius: '6px',
+            padding: '2px 8px',
+            borderRadius: '8px',
             border: '2px solid #1e1b18',
             boxShadow: '2px 2px 0px #1e1b18',
             display: 'flex',
             alignItems: 'center',
-            height: '34px'
+            height: isMobile ? '34px' : '44px'
           }}>
             <img 
               src="/uttaranchal-logo.svg" 
               alt="Uttaranchal University" 
-              style={{ height: '24px', width: 'auto' }} 
+              style={{ height: isMobile ? '24px' : '34px', width: 'auto' }} 
             />
           </div>
 
-          <div className="sketch-badge" style={{ background: '#3ba4ff', color: '#fff', fontSize: '0.78rem', padding: '3px 6px' }}>
+          <div className="sketch-badge" style={{ background: '#3ba4ff', color: '#fff', fontSize: isMobile ? '0.75rem' : '0.9rem', padding: '3px 8px' }}>
             IEEE UU-SB
           </div>
 
-          <span className="mobile-hide" style={{ fontFamily: 'var(--font-cray)', fontSize: '1.05rem', color: '#1e1b18' }}>
-            {slidesData[currentSlide].title}
-          </span>
+          {!isMobile && (
+            <span style={{ fontFamily: 'var(--font-cray)', fontSize: '1.15rem', color: '#1e1b18', marginLeft: '6px' }}>
+              {slidesData[currentSlide].title}
+            </span>
+          )}
         </div>
 
-        {/* Row 2 on mobile: Toolbar Controls */}
-        <div className="header-actions-row" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <DoodlerToolbar
-            isDrawing={isDrawing}
-            setIsDrawing={setIsDrawing}
-            activeColor={activeColor}
-            setActiveColor={setActiveColor}
-            clearCanvas={clearCanvas}
-          />
-
-          <button
-            onClick={() => setShowTutorial(true)}
-            className="sketch-btn"
-            style={{ padding: '4px 8px', fontSize: '0.75rem', background: '#ffe8f2', color: '#ff334b' }}
-            title="Guide"
-          >
-            <QuestionIcon size={13} /> Guide
-          </button>
+        {/* Action Controls */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {!isMobile && (
+            <DoodlerToolbar
+              isDrawing={isDrawing}
+              setIsDrawing={setIsDrawing}
+              activeColor={activeColor}
+              setActiveColor={setActiveColor}
+              clearCanvas={clearCanvas}
+            />
+          )}
 
           <button
             onClick={() => setShowOverview(true)}
             className="sketch-btn"
-            style={{ padding: '4px 8px', fontSize: '0.75rem', background: '#e8f5ff' }}
-            title="Overview"
+            style={{ padding: '4px 8px', fontSize: '0.78rem', background: '#e8f5ff' }}
           >
-            <Grid size={13} /> ({currentSlide + 1}/15)
+            <Grid size={14} /> ({currentSlide + 1}/15)
           </button>
 
-          <button
-            onClick={() => setShowPresenterNotes(!showPresenterNotes)}
-            className="sketch-btn mobile-hide"
-            style={{ padding: '4px 8px', fontSize: '0.75rem', background: showPresenterNotes ? '#ff5e97' : '#fff', color: showPresenterNotes ? '#fff' : '#1e1b18' }}
-          >
-            <BookOpen size={13} /> Notes
-          </button>
+          {!isMobile && (
+            <button
+              onClick={() => setShowPresenterNotes(!showPresenterNotes)}
+              className="sketch-btn"
+              style={{ padding: '4px 8px', fontSize: '0.78rem', background: showPresenterNotes ? '#ff5e97' : '#fff', color: showPresenterNotes ? '#fff' : '#1e1b18' }}
+            >
+              <BookOpen size={14} /> Notes
+            </button>
+          )}
         </div>
       </header>
 
-      {/* Main Slide Presentation Stage with full vertical flow */}
-      <main className="presentation-main-stage" style={{
-        flex: '1 1 auto',
+      {/* Main Stage: Dedicated Clean UI on Mobile vs Interactive Canvas on Desktop */}
+      <main style={{
+        flex: 1,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-start',
-        padding: '12px 14px',
+        alignItems: isMobile ? 'stretch' : 'center',
+        padding: isMobile ? '10px' : '16px 20px',
         position: 'relative'
       }}>
-        {/* The Slide Paper Card */}
-        <div 
-          className="slide-container-card"
-          style={{
-            width: '100%',
-            maxWidth: '1100px',
-            background: '#fffdf7',
-            border: '3px solid #1e1b18',
-            borderRadius: '16px',
-            boxShadow: '6px 6px 0px #1e1b18',
-            position: 'relative',
-            padding: '16px 18px',
-            overflow: 'hidden'
-          }}
-        >
-          {/* Active Slide Content */}
-          <div style={{ position: 'relative', zIndex: 10, width: '100%' }}>
-            {slidesData[currentSlide].component}
-          </div>
-
-          {/* Eraser Wipe Transition Overlay Layer */}
-          {isErasing && (
-            <>
-              <div className={`eraser-overlay ${eraseDirection}`} />
-              <div className={`eraser-tool ${eraseDirection}`}>
-                <span>ERASING...</span>
-              </div>
-            </>
-          )}
-
-          {/* Interactive Drawing Canvas Layer */}
-          <canvas
-            ref={canvasRef}
-            onMouseDown={startDrawing}
-            onMouseUp={stopDrawing}
-            onMouseLeave={stopDrawing}
-            onMouseMove={draw}
-            onTouchStart={startDrawing}
-            onTouchEnd={stopDrawing}
-            onTouchMove={draw}
-            className={`slide-canvas ${isDrawing ? 'drawing-active' : ''}`}
+        {isMobile ? (
+          /* Clean, clutter-free mobile UI */
+          <MobilePresentationView
+            currentSlide={currentSlide}
+            setCurrentSlide={setCurrentSlide}
+            totalSlides={slidesData.length}
+            triggerWipe={triggerEraserWipe}
           />
-        </div>
+        ) : (
+          /* Full Desktop Notebook Stage */
+          <div 
+            style={{
+              width: '100%',
+              maxWidth: '1200px',
+              height: '100%',
+              maxHeight: '740px',
+              background: '#fffdf7',
+              border: '3.5px solid #1e1b18',
+              borderRadius: '255px 15px 225px 15px/15px 225px 15px 255px',
+              boxShadow: '8px 8px 0px #1e1b18',
+              position: 'relative',
+              padding: '20px 24px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <div className="tape-top"></div>
+            <div className="paperclip"></div>
+
+            <div style={{ flex: 1, position: 'relative', zIndex: 10, height: '100%' }}>
+              {slidesData[currentSlide].component}
+            </div>
+
+            {/* Eraser Wipe Transition */}
+            {isErasing && (
+              <>
+                <div className={`eraser-overlay ${eraseDirection}`} />
+                <div className={`eraser-tool ${eraseDirection}`}>
+                  <span style={{ position: 'relative', zIndex: 2, marginLeft: '16px' }}>ERASING...</span>
+                </div>
+              </>
+            )}
+
+            {/* Live Doodler Canvas */}
+            <canvas
+              ref={canvasRef}
+              onMouseDown={startDrawing}
+              onMouseUp={stopDrawing}
+              onMouseLeave={stopDrawing}
+              onMouseMove={draw}
+              className={`slide-canvas ${isDrawing ? 'drawing-active' : ''}`}
+            />
+          </div>
+        )}
       </main>
 
-      {/* Tutorial Modal */}
-      <TutorialModal
-        isOpen={showTutorial}
-        onClose={() => setShowTutorial(false)}
-      />
-
-      {/* Presenter Notes Overlay Drawer */}
-      {showPresenterNotes && (
-        <div style={{
-          position: 'fixed',
-          bottom: '60px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '92%',
-          maxWidth: '750px',
-          background: '#fff8d6',
-          border: '2.5px solid #1e1b18',
-          borderRadius: '12px',
-          padding: '10px 14px',
-          boxShadow: '4px 4px 0px #1e1b18',
-          zIndex: 800
+      {/* Desktop Footer (Hidden on Mobile since MobilePresentationView has integrated touch buttons) */}
+      {!isMobile && (
+        <footer style={{
+          height: '60px',
+          padding: '0 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          background: '#fffdf7',
+          borderTop: '3px solid #1e1b18',
+          zIndex: 50
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-            <span style={{ fontFamily: 'var(--font-cray)', fontSize: '0.95rem', color: '#ff334b' }}>
-              🎙️ Speaker Note for Slide {currentSlide + 1}:
-            </span>
-            <button onClick={() => setShowPresenterNotes(false)} className="sketch-badge" style={{ cursor: 'pointer', padding: '1px 6px' }}>✕</button>
+          <button
+            onClick={prevSlide}
+            disabled={currentSlide === 0 || isErasing}
+            className="sketch-btn"
+            style={{ opacity: currentSlide === 0 ? 0.4 : 1, background: '#ffdf40' }}
+          >
+            <ChevronLeft size={18} /> Previous
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {slidesData.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  if (idx !== currentSlide && !isErasing) {
+                    triggerEraserWipe(idx, idx > currentSlide ? 'forward' : 'backward');
+                  }
+                }}
+                style={{
+                  width: currentSlide === idx ? '26px' : '12px',
+                  height: '12px',
+                  borderRadius: '6px',
+                  backgroundColor: currentSlide === idx ? '#ff334b' : '#d2c9b8',
+                  border: '1.5px solid #1e1b18',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+                title={`Jump to Slide ${idx + 1}`}
+              />
+            ))}
           </div>
-          <p style={{ fontFamily: 'var(--font-comic)', fontSize: '0.95rem', fontWeight: 600, color: '#1e1b18' }}>
-            {presenterNotes[currentSlide]}
-          </p>
-        </div>
+
+          <button
+            onClick={nextSlide}
+            disabled={currentSlide === slidesData.length - 1 || isErasing}
+            className="sketch-btn"
+            style={{ opacity: currentSlide === slidesData.length - 1 ? 0.4 : 1, background: '#2ecc71', color: '#fff' }}
+          >
+            Next <ChevronRight size={18} />
+          </button>
+        </footer>
       )}
 
-      {/* Responsive Bottom Floating Navigation Bar */}
-      <footer className="bottom-nav-footer" style={{
-        height: '56px',
-        padding: '0 16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        background: '#fffdf7',
-        borderTop: '3px solid #1e1b18',
-        zIndex: 50
-      }}>
-        <button
-          onClick={prevSlide}
-          disabled={currentSlide === 0 || isErasing}
-          className="sketch-btn"
-          style={{
-            opacity: currentSlide === 0 ? 0.4 : 1,
-            cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
-            background: '#ffdf40',
-            padding: '5px 10px',
-            fontSize: '0.8rem'
-          }}
-        >
-          <ChevronLeft size={16} /> Prev
-        </button>
-
-        {/* Slide Progress Dots / Ticks */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '3px', overflowX: 'auto', padding: '2px' }}>
-          {slidesData.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                if (idx !== currentSlide && !isErasing) {
-                  triggerEraserWipe(idx, idx > currentSlide ? 'forward' : 'backward');
-                }
-              }}
-              style={{
-                width: currentSlide === idx ? '18px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: currentSlide === idx ? '#ff334b' : '#d2c9b8',
-                border: '1px solid #1e1b18',
-                cursor: 'pointer',
-                padding: 0,
-                transition: 'all 0.15s ease'
-              }}
-              title={`Jump to Slide ${idx + 1}`}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={nextSlide}
-          disabled={currentSlide === slidesData.length - 1 || isErasing}
-          className="sketch-btn"
-          style={{
-            opacity: currentSlide === slidesData.length - 1 ? 0.4 : 1,
-            cursor: currentSlide === slidesData.length - 1 ? 'not-allowed' : 'pointer',
-            background: '#2ecc71',
-            color: '#fff',
-            padding: '5px 10px',
-            fontSize: '0.8rem'
-          }}
-        >
-          Next <ChevronRight size={16} />
-        </button>
-      </footer>
-
-      {/* Full Presentation Overview Modal */}
+      {/* Slide Overview Grid Modal */}
       {showOverview && (
         <div style={{
           position: 'fixed',
@@ -433,27 +397,27 @@ export default function App() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '12px'
+          padding: '14px'
         }}>
           <div style={{
             background: '#f8f4e9',
             width: '95%',
             maxWidth: '850px',
             maxHeight: '90vh',
-            borderRadius: '14px',
+            borderRadius: '16px',
             border: '3px solid #1e1b18',
-            padding: '14px',
+            padding: '16px',
             overflowY: 'auto',
-            boxShadow: '6px 6px 0px #1e1b18'
+            boxShadow: '8px 8px 0px #1e1b18'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <h2 style={{ fontFamily: 'var(--font-cray)', fontSize: '1.4rem' }}>
-                📑 All 15 Slides Overview
+                📑 All 15 Slides
               </h2>
               <button
                 onClick={() => setShowOverview(false)}
                 className="sketch-btn"
-                style={{ background: '#ff334b', color: '#fff', padding: '3px 8px', fontSize: '0.75rem' }}
+                style={{ background: '#ff334b', color: '#fff', padding: '4px 10px' }}
               >
                 ✕
               </button>
@@ -471,16 +435,16 @@ export default function App() {
                   }}
                   className="sketch-box"
                   style={{
-                    padding: '6px',
+                    padding: '8px',
                     cursor: 'pointer',
                     background: currentSlide === idx ? '#ffdf40' : '#fff',
                     border: currentSlide === idx ? '2.5px solid #ff334b' : '1.5px solid #1e1b18'
                   }}
                 >
-                  <span className="sketch-badge" style={{ fontSize: '0.65rem', padding: '1px 4px', marginBottom: '2px' }}>
+                  <span className="sketch-badge" style={{ fontSize: '0.65rem', marginBottom: '2px' }}>
                     Slide {idx + 1}
                   </span>
-                  <div style={{ fontWeight: 'bold', fontSize: '0.78rem', marginTop: '2px', lineHeight: 1.1 }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '0.78rem', marginTop: '2px', lineHeight: 1.15 }}>
                     {s.title.replace(/Slide \d+: /, '')}
                   </div>
                 </div>
