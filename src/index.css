@@ -36,53 +36,62 @@ html, body {
 .sketch-box {
   background: var(--paper-cream);
   border: 2.5px solid var(--ink-black);
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px var(--ink-black);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .sketch-box-yellow {
   background: #fff8d6;
   border: 2.5px solid var(--ink-black);
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-blue {
   background: #e8f5ff;
   border: 2.5px solid var(--ink-black);
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-pink {
   background: #ffe8f2;
   border: 2.5px solid var(--ink-black);
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-green {
   background: #e6fcf2;
   border: 2.5px solid var(--ink-black);
-  border-radius: 14px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px var(--ink-black);
+}
+
+.sketch-box-purple {
+  background: #f4ecff;
+  border: 2.5px solid var(--ink-black);
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-btn {
   font-family: var(--font-sketch);
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   background: var(--sunny-yellow);
   color: var(--ink-black);
   border: 2px solid var(--ink-black);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 6px 12px;
   cursor: pointer;
   box-shadow: 2px 2px 0px var(--ink-black);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   touch-action: manipulation;
+  transition: transform 0.15s ease;
 }
 
 .sketch-btn:active {
@@ -98,7 +107,7 @@ html, body {
   background: white;
   border-radius: 8px;
   font-weight: bold;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .doodle-underline {
@@ -123,12 +132,23 @@ html, body {
   top: -8px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
-  width: 50px;
-  height: 16px;
+  width: 60px;
+  height: 18px;
   background: rgba(255, 235, 130, 0.75);
   border-left: 1.5px dashed rgba(0,0,0,0.2);
   border-right: 1.5px dashed rgba(0,0,0,0.2);
   z-index: 5;
+}
+
+.paperclip {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  width: 14px;
+  height: 28px;
+  border: 2.5px solid #666;
+  border-radius: 8px 8px 0 0;
+  z-index: 6;
 }
 
 .slide-canvas {
@@ -145,17 +165,30 @@ html, body {
   cursor: crosshair;
 }
 
+/* Animations */
+@keyframes scribble-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+.float-wiggle { animation: scribble-float 3s ease-in-out infinite; }
+
+@keyframes pulse-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.pop-pulse { animation: pulse-pop 2s ease-in-out infinite; }
+
 /* Eraser Transition */
 @keyframes eraserWipeForward {
-  0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
-  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-  100% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+  0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); opacity: 0.9; }
+  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+  100% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); opacity: 0; }
 }
 
 @keyframes eraserWipeBackward {
-  0% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
-  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-  100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  0% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); opacity: 0.9; }
+  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+  100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); opacity: 0; }
 }
 
 .eraser-overlay {
@@ -173,8 +206,8 @@ html, body {
 
 .eraser-tool {
   position: absolute;
-  width: 60px;
-  height: 32px;
+  width: 65px;
+  height: 34px;
   background: #ff5e97;
   border: 2px solid #1e1b18;
   border-radius: 6px;
@@ -182,74 +215,78 @@ html, body {
   align-items: center;
   justify-content: center;
   font-family: var(--font-cray);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 800;
   color: white;
   z-index: 1001;
   pointer-events: none;
 }
-.eraser-tool.forward {
-  animation: eraserBlockMoveForward 0.5s ease forwards;
-}
+.eraser-tool.forward { animation: eraserBlockMoveForward 0.5s ease forwards; }
 @keyframes eraserBlockMoveForward {
-  0% { left: -60px; top: 20%; }
-  100% { left: calc(100% + 60px); top: 30%; }
+  0% { left: -70px; top: 20%; transform: rotate(-10deg); }
+  100% { left: calc(100% + 70px); top: 30%; transform: rotate(10deg); }
 }
-
-/* Animations */
-@keyframes pulse-pop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
-.pop-pulse { animation: pulse-pop 2s ease-in-out infinite; }
 
 /* =========================================================
-   PHONE & VERTICAL SCREEN STYLES
+   DESKTOP VS SMARTPHONE SCALING & ZOOM RULES
    ========================================================= */
+
+/* Desktop / Laptop */
+@media (min-width: 769px) {
+  .slide-container-card {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    max-height: 740px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+/* Smartphones (iPhone, Android, Portrait Viewports) */
 @media (max-width: 768px) {
-  .app-header {
-    height: auto !important;
-    padding: 6px 10px !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 6px !important;
-  }
-
-  .header-top-row {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+  /* Prevent horizontal cutoffs and scale content proportionally */
+  .mobile-slide-scaler {
     width: 100% !important;
-  }
-
-  .header-actions-row {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    width: 100% !important;
-    overflow-x: auto !important;
-    gap: 4px !important;
-  }
-
-  .presentation-main-stage {
-    padding: 6px !important;
-    overflow-y: auto !important;
-    height: auto !important;
-    flex: 1 1 auto !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    padding: 6px 4px !important;
   }
 
   .slide-container-card {
+    width: 100% !important;
     height: auto !important;
     max-height: none !important;
-    min-height: auto !important;
-    padding: 12px 10px !important;
-    border-radius: 12px !important;
+    padding: 14px 10px !important;
+    border-radius: 14px !important;
+    border-width: 2.5px !important;
     box-shadow: 4px 4px 0px #1e1b18 !important;
-    margin-bottom: 70px !important;
+    margin-bottom: 75px !important;
   }
 
+  /* Responsive typography */
+  .mobile-h1 {
+    font-size: 1.35rem !important;
+    line-height: 1.18 !important;
+  }
+  .mobile-h2 {
+    font-size: 1.1rem !important;
+    line-height: 1.18 !important;
+  }
+  .mobile-h3 {
+    font-size: 0.95rem !important;
+  }
+  .mobile-text-sm {
+    font-size: 0.82rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Stack columns cleanly without reducing content */
   .mobile-stack {
     grid-template-columns: 1fr !important;
-    gap: 10px !important;
+    gap: 8px !important;
   }
 
   .mobile-grid-2 {
@@ -260,25 +297,6 @@ html, body {
   .mobile-grid-3 {
     grid-template-columns: 1fr 1fr !important;
     gap: 6px !important;
-  }
-
-  .mobile-h1 {
-    font-size: 1.45rem !important;
-    line-height: 1.2 !important;
-  }
-
-  .mobile-h2 {
-    font-size: 1.15rem !important;
-    line-height: 1.2 !important;
-  }
-
-  .mobile-h3 {
-    font-size: 0.95rem !important;
-  }
-
-  .mobile-text-sm {
-    font-size: 0.85rem !important;
-    line-height: 1.35 !important;
   }
 
   .mobile-scroll-x {
@@ -292,17 +310,5 @@ html, body {
 
   .mobile-hide {
     display: none !important;
-  }
-
-  .bottom-nav-footer {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 52px !important;
-    padding: 4px 10px !important;
-    background: #fffdf7 !important;
-    box-shadow: 0 -3px 0px rgba(0,0,0,0.1) !important;
-    z-index: 100 !important;
   }
 }
