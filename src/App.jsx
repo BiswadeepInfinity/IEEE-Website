@@ -21,6 +21,8 @@ export default function App() {
   const [autoPlay, setAutoPlay] = useState(false);
   const [showPresenterNotes, setShowPresenterNotes] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [hasScroll, setHasScroll] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   
   // Eraser Transition State
   const [isErasing, setIsErasing] = useState(false);
@@ -114,6 +116,28 @@ export default function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentSlide, isErasing, showTutorial]);
+
+  // Check if content overflows and needs a scroll hint
+  useEffect(() => {
+    setHasScrolled(false);
+    const checkOverflow = () => {
+      const card = document.querySelector('.slide-container-card');
+      if (card) {
+        const isOverflowing = card.scrollHeight > window.innerHeight - 130;
+        setHasScroll(isOverflowing);
+      }
+    };
+    const timer = setTimeout(checkOverflow, 300);
+
+    const onScroll = () => {
+      if (window.scrollY > 40) setHasScrolled(true);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [currentSlide]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -286,6 +310,32 @@ export default function App() {
           <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '100%' }}>
             {slidesData[currentSlide].component}
           </div>
+
+          {/* Floating 'Scroll for more' Cue Indicator */}
+          {hasScroll && !hasScrolled && (
+            <div 
+              onClick={() => {
+                const mainEl = document.querySelector('main');
+                if (mainEl) mainEl.scrollBy({ top: 180, behavior: 'smooth' });
+                window.scrollBy({ top: 180, behavior: 'smooth' });
+              }}
+              style={{
+                position: 'sticky',
+                bottom: '12px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                justifyContent: 'center',
+                zIndex: 40,
+                marginTop: '8px',
+                pointerEvents: 'auto'
+              }}
+            >
+              <div className="scroll-indicator-cue">
+                <span>👇 Scroll down for more</span>
+              </div>
+            </div>
+          )}
 
           {/* Eraser Wipe Transition */}
           {isErasing && (

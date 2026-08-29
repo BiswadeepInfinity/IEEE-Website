@@ -227,6 +227,46 @@ html, body {
   100% { left: calc(100% + 70px); top: 30%; transform: rotate(10deg); }
 }
 
+/* Scroll Prompt / Floating Hint */
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(6px); }
+  60% { transform: translateY(3px); }
+}
+
+.scroll-indicator-cue {
+  animation: bounceDown 1.8s infinite;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--sunny-yellow);
+  border: 1.5px solid var(--ink-black);
+  border-radius: 20px;
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  box-shadow: 2px 2px 0px var(--ink-black);
+  cursor: pointer;
+}
+
+/* Custom Visible Cartoon Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ebd9;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--tangy-orange);
+  border: 1.5px solid var(--ink-black);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson-red);
+}
+
 /* =========================================================
    DESKTOP VS SMARTPHONE SCALING & ZOOM RULES
    ========================================================= */
