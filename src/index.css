@@ -5,10 +5,9 @@
   --font-cray: 'Gloria Hallelujah', cursive, sans-serif;
   --font-doodle: 'Caveat', cursive, sans-serif;
 
-  /* Vibrant Sketch / Cartoon Color Palette */
+  /* Vibrant Sketch Palette */
   --ink-black: #1e1b18;
   --paper-cream: #fffdf7;
-  --paper-pattern: #f5f0e3;
   --sunny-yellow: #ffdf40;
   --electric-blue: #3ba4ff;
   --crayon-pink: #ff5e97;
@@ -16,116 +15,90 @@
   --tangy-orange: #ff7828;
   --grape-purple: #9d5cff;
   --crimson-red: #ff334b;
-  --pencil-lead: #524b43;
-  --sketch-shadow: rgba(30, 27, 24, 0.95);
-  --sketch-shadow-soft: rgba(30, 27, 24, 0.15);
-  --paper-grid: #e2dac9;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  user-select: none;
 }
 
-body {
+html, body {
+  width: 100%;
+  min-height: 100%;
   background-color: #f7f3e8;
-  background-image: 
-    radial-gradient(var(--paper-grid) 1.5px, transparent 1.5px),
-    linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
-  background-size: 24px 24px, 12px 12px, 12px 12px;
   color: var(--ink-black);
   font-family: var(--font-comic);
-  min-height: 100vh;
-  min-height: 100dvh;
-  position: relative;
   overflow-x: hidden;
 }
 
-/* Wobbly sketch borders & Cartoon Shadows */
+/* Base Sketch Boxes */
 .sketch-box {
   background: var(--paper-cream);
-  border: 3px solid var(--ink-black);
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  box-shadow: 4px 4px 0px var(--sketch-shadow);
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.sketch-box:hover {
-  box-shadow: 6px 6px 0px var(--sketch-shadow);
-  transform: translate(-1px, -1px);
+  border: 2.5px solid var(--ink-black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-yellow {
   background: #fff8d6;
-  border: 3px solid var(--ink-black);
-  border-radius: 20px 245px 20px 255px/240px 20px 250px 20px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2.5px solid var(--ink-black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-blue {
   background: #e8f5ff;
-  border: 3px solid var(--ink-black);
-  border-radius: 250px 20px 240px 20px/20px 245px 20px 255px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2.5px solid var(--ink-black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-pink {
   background: #ffe8f2;
-  border: 3px solid var(--ink-black);
-  border-radius: 255px 20px 225px 15px/15px 225px 20px 255px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2.5px solid var(--ink-black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-green {
   background: #e6fcf2;
-  border: 3px solid var(--ink-black);
-  border-radius: 20px 255px 20px 240px/250px 20px 245px 20px;
-  box-shadow: 4px 4px 0px var(--ink-black);
-}
-
-.sketch-box-purple {
-  background: #f4ecff;
-  border: 3px solid var(--ink-black);
-  border-radius: 245px 18px 230px 22px/22px 235px 18px 250px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2.5px solid var(--ink-black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-btn {
   font-family: var(--font-sketch);
   font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.3px;
+  font-size: 0.9rem;
   background: var(--sunny-yellow);
   color: var(--ink-black);
-  border: 2.5px solid var(--ink-black);
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  padding: 8px 16px;
+  border: 2px solid var(--ink-black);
+  border-radius: 10px;
+  padding: 6px 12px;
   cursor: pointer;
-  box-shadow: 3px 3px 0px var(--ink-black);
-  transition: all 0.15s ease;
+  box-shadow: 2px 2px 0px var(--ink-black);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   touch-action: manipulation;
 }
 
 .sketch-btn:active {
-  transform: translate(2px, 2px);
+  transform: translate(1px, 1px);
   box-shadow: 1px 1px 0px var(--ink-black);
 }
 
 .sketch-badge {
   font-family: var(--font-cray);
   display: inline-block;
-  padding: 3px 10px;
-  border: 2px dashed var(--ink-black);
+  padding: 2px 8px;
+  border: 1.5px dashed var(--ink-black);
   background: white;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: bold;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
 }
 
 .doodle-underline {
@@ -139,55 +112,23 @@ body {
   left: -2px;
   right: -2px;
   bottom: 0px;
-  height: 5px;
+  height: 4px;
   background: var(--sunny-yellow);
   z-index: -1;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .tape-top {
   position: absolute;
-  top: -10px;
+  top: -8px;
   left: 50%;
-  transform: translateX(-50%) rotate(-3deg);
-  width: 70px;
-  height: 20px;
-  background: rgba(255, 235, 130, 0.7);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  border-left: 2px dashed rgba(0,0,0,0.2);
-  border-right: 2px dashed rgba(0,0,0,0.2);
-  z-index: 10;
-}
-
-.paperclip {
-  position: absolute;
-  top: -12px;
-  left: 20px;
-  width: 16px;
-  height: 32px;
-  border: 3px solid #666;
-  border-radius: 10px 10px 0 0;
-  z-index: 12;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-}
-
-/* Animations */
-@keyframes scribble-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(0.8deg); }
-}
-
-.float-wiggle {
-  animation: scribble-float 3.5s ease-in-out infinite;
-}
-
-@keyframes pulse-pop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-}
-
-.pop-pulse {
-  animation: pulse-pop 2s ease-in-out infinite;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 50px;
+  height: 16px;
+  background: rgba(255, 235, 130, 0.75);
+  border-left: 1.5px dashed rgba(0,0,0,0.2);
+  border-right: 1.5px dashed rgba(0,0,0,0.2);
+  z-index: 5;
 }
 
 .slide-canvas {
@@ -204,88 +145,17 @@ body {
   cursor: crosshair;
 }
 
-/* =========================================================
-   ERASER WIPE TRANSITION EFFECT & DUST PARTICLES
-   ========================================================= */
+/* Eraser Transition */
 @keyframes eraserWipeForward {
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-    opacity: 0.8;
-  }
-  50% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    opacity: 1;
-  }
-  100% {
-    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-    opacity: 0;
-  }
+  0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  100% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
 }
 
 @keyframes eraserWipeBackward {
-  0% {
-    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-    opacity: 0.8;
-  }
-  50% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    opacity: 1;
-  }
-  100% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-    opacity: 0;
-  }
-}
-
-@keyframes eraserBlockMoveForward {
-  0% {
-    left: -80px;
-    top: 15%;
-    transform: rotate(-15deg);
-  }
-  50% {
-    left: 50%;
-    top: 50%;
-    transform: rotate(15deg) scale(1.1);
-  }
-  100% {
-    left: calc(100% + 80px);
-    top: 25%;
-    transform: rotate(-10deg);
-  }
-}
-
-@keyframes eraserBlockMoveBackward {
-  0% {
-    left: calc(100% + 80px);
-    top: 25%;
-    transform: rotate(10deg);
-  }
-  50% {
-    left: 50%;
-    top: 50%;
-    transform: rotate(-15deg) scale(1.1);
-  }
-  100% {
-    left: -80px;
-    top: 15%;
-    transform: rotate(15deg);
-  }
-}
-
-@keyframes eraserDustFly {
-  0% {
-    transform: translate(0, 0) scale(0.5);
-    opacity: 0.9;
-  }
-  50% {
-    transform: translate(calc(var(--dx, 15px)), calc(var(--dy, -20px))) scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translate(calc(var(--dx, 30px) * 1.5), calc(var(--dy, -40px) * 1.5)) scale(0);
-    opacity: 0;
-  }
+  0% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
 }
 
 .eraser-overlay {
@@ -298,135 +168,141 @@ body {
   z-index: 1000;
   pointer-events: none;
 }
-
-.eraser-overlay.forward {
-  animation: eraserWipeForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.eraser-overlay.backward {
-  animation: eraserWipeBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
+.eraser-overlay.forward { animation: eraserWipeForward 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.eraser-overlay.backward { animation: eraserWipeBackward 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
 .eraser-tool {
   position: absolute;
-  width: 70px;
-  height: 38px;
+  width: 60px;
+  height: 32px;
   background: #ff5e97;
-  border: 2.5px solid #1e1b18;
-  border-radius: 6px 12px 6px 12px;
-  box-shadow: 4px 4px 0px #1e1b18;
+  border: 2px solid #1e1b18;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-cray);
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-size: 0.7rem;
   color: white;
   z-index: 1001;
   pointer-events: none;
 }
-
-.eraser-tool::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 24px;
-  background: #3ba4ff;
-  border-right: 2px solid #1e1b18;
-  border-radius: 3px 0 0 3px;
-}
-
 .eraser-tool.forward {
-  animation: eraserBlockMoveForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserBlockMoveForward 0.5s ease forwards;
+}
+@keyframes eraserBlockMoveForward {
+  0% { left: -60px; top: 20%; }
+  100% { left: calc(100% + 60px); top: 30%; }
 }
 
-.eraser-tool.backward {
-  animation: eraserBlockMoveBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+/* Animations */
+@keyframes pulse-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
 }
-
-.dust-particle {
-  position: absolute;
-  background: #d5cbba;
-  border: 1px solid #1e1b18;
-  border-radius: 50%;
-  animation: eraserDustFly 0.45s ease-out forwards;
-  pointer-events: none;
-}
+.pop-pulse { animation: pulse-pop 2s ease-in-out infinite; }
 
 /* =========================================================
-   MOBILE RESPONSIVENESS (VERTICAL PHONES & TABLETS)
+   PHONE & VERTICAL SCREEN STYLES
    ========================================================= */
 @media (max-width: 768px) {
-  body {
-    overflow-y: auto;
-    overflow-x: hidden;
+  .app-header {
+    height: auto !important;
+    padding: 6px 10px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+  }
+
+  .header-top-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .header-actions-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    gap: 4px !important;
+  }
+
+  .presentation-main-stage {
+    padding: 6px !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    flex: 1 1 auto !important;
   }
 
   .slide-container-card {
     height: auto !important;
     max-height: none !important;
     min-height: auto !important;
-    padding: 14px 10px !important;
-    border-width: 3px !important;
-    border-radius: 16px !important;
+    padding: 12px 10px !important;
+    border-radius: 12px !important;
     box-shadow: 4px 4px 0px #1e1b18 !important;
+    margin-bottom: 70px !important;
   }
 
   .mobile-stack {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 10px !important;
   }
 
   .mobile-grid-2 {
     grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
   }
 
-  .mobile-grid-1 {
-    grid-template-columns: 1fr !important;
+  .mobile-grid-3 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+  }
+
+  .mobile-h1 {
+    font-size: 1.45rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .mobile-h2 {
+    font-size: 1.15rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .mobile-h3 {
+    font-size: 0.95rem !important;
+  }
+
+  .mobile-text-sm {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .mobile-scroll-x {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap !important;
+    padding-bottom: 4px !important;
+    gap: 4px !important;
   }
 
   .mobile-hide {
     display: none !important;
   }
 
-  .mobile-h1 {
-    font-size: 1.8rem !important;
-    line-height: 1.2 !important;
+  .bottom-nav-footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 52px !important;
+    padding: 4px 10px !important;
+    background: #fffdf7 !important;
+    box-shadow: 0 -3px 0px rgba(0,0,0,0.1) !important;
+    z-index: 100 !important;
   }
-
-  .mobile-h2 {
-    font-size: 1.4rem !important;
-  }
-
-  .mobile-h3 {
-    font-size: 1.15rem !important;
-  }
-
-  .mobile-text-sm {
-    font-size: 0.9rem !important;
-  }
-
-  .mobile-scroll-x {
-    display: flex !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-    padding-bottom: 6px !important;
-    scrollbar-width: thin;
-  }
-}
-
-/* Custom Scrollbar for cartoon look */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #f1ebd9;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--tangy-orange);
-  border: 1.5px solid var(--ink-black);
-  border-radius: 10px;
 }
