@@ -21,91 +21,105 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
+body {
   background-color: #f7f3e8;
+  background-image: 
+    radial-gradient(#e2dac9 1.5px, transparent 1.5px),
+    linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 24px 24px, 12px 12px, 12px 12px;
   color: var(--ink-black);
   font-family: var(--font-comic);
-  overflow: hidden; /* App level viewport lock so container handles internal fitting */
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Base Sketch Boxes */
+/* Wobbly sketch borders & Cartoon Shadows */
 .sketch-box {
   background: var(--paper-cream);
-  border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  box-shadow: 4px 4px 0px var(--ink-black);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sketch-box:hover {
+  box-shadow: 6px 6px 0px var(--ink-black);
+  transform: translate(-1px, -1px);
 }
 
 .sketch-box-yellow {
   background: #fff8d6;
-  border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 20px 245px 20px 255px/240px 20px 250px 20px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-blue {
   background: #e8f5ff;
-  border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 250px 20px 240px 20px/20px 245px 20px 255px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-pink {
   background: #ffe8f2;
-  border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 255px 20px 225px 15px/15px 225px 20px 255px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-green {
   background: #e6fcf2;
-  border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 20px 255px 20px 240px/250px 20px 245px 20px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-box-purple {
   background: #f4ecff;
-  border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 245px 18px 230px 22px/22px 235px 18px 250px;
+  box-shadow: 4px 4px 0px var(--ink-black);
 }
 
 .sketch-btn {
   font-family: var(--font-sketch);
   font-weight: 800;
-  font-size: 0.88rem;
+  font-size: 1rem;
   background: var(--sunny-yellow);
   color: var(--ink-black);
-  border: 2px solid var(--ink-black);
-  border-radius: 10px;
-  padding: 5px 10px;
+  border: 2.5px solid var(--ink-black);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  padding: 8px 16px;
   cursor: pointer;
-  box-shadow: 2px 2px 0px var(--ink-black);
+  box-shadow: 3px 3px 0px var(--ink-black);
+  transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   touch-action: manipulation;
 }
 
 .sketch-btn:active {
-  transform: translate(1px, 1px);
+  transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px var(--ink-black);
 }
 
 .sketch-badge {
   font-family: var(--font-cray);
   display: inline-block;
-  padding: 2px 6px;
-  border: 1.5px dashed var(--ink-black);
+  padding: 3px 10px;
+  border: 2px dashed var(--ink-black);
   background: white;
-  border-radius: 6px;
+  border-radius: 10px;
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 }
 
 .doodle-underline {
@@ -119,34 +133,55 @@ html, body {
   left: -2px;
   right: -2px;
   bottom: 0px;
-  height: 4px;
+  height: 5px;
   background: var(--sunny-yellow);
   z-index: -1;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .tape-top {
   position: absolute;
-  top: -8px;
+  top: -10px;
   left: 50%;
-  transform: translateX(-50%) rotate(-2deg);
-  width: 50px;
-  height: 16px;
-  background: rgba(255, 235, 130, 0.75);
-  border-left: 1.5px dashed rgba(0,0,0,0.2);
-  border-right: 1.5px dashed rgba(0,0,0,0.2);
-  z-index: 5;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 70px;
+  height: 20px;
+  background: rgba(255, 235, 130, 0.7);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  border-left: 2px dashed rgba(0,0,0,0.2);
+  border-right: 2px dashed rgba(0,0,0,0.2);
+  z-index: 10;
 }
 
 .paperclip {
   position: absolute;
-  top: -10px;
-  left: 18px;
-  width: 12px;
-  height: 24px;
-  border: 2px solid #666;
-  border-radius: 6px 6px 0 0;
-  z-index: 6;
+  top: -12px;
+  left: 30px;
+  width: 16px;
+  height: 32px;
+  border: 3px solid #666;
+  border-radius: 10px 10px 0 0;
+  z-index: 12;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Animations */
+@keyframes scribble-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(0.8deg); }
+}
+
+.float-wiggle {
+  animation: scribble-float 3.5s ease-in-out infinite;
+}
+
+@keyframes pulse-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.pop-pulse {
+  animation: pulse-pop 2s ease-in-out infinite;
 }
 
 .slide-canvas {
@@ -165,15 +200,84 @@ html, body {
 
 /* Eraser Transition */
 @keyframes eraserWipeForward {
-  0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); opacity: 0.9; }
-  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
-  100% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); opacity: 0; }
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0.8;
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0;
+  }
 }
 
 @keyframes eraserWipeBackward {
-  0% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); opacity: 0.9; }
-  50% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
-  100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); opacity: 0; }
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0.8;
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+  }
+}
+
+@keyframes eraserBlockMoveForward {
+  0% {
+    left: -80px;
+    top: 15%;
+    transform: rotate(-15deg);
+  }
+  50% {
+    left: 50%;
+    top: 50%;
+    transform: rotate(15deg) scale(1.1);
+  }
+  100% {
+    left: calc(100% + 80px);
+    top: 25%;
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes eraserBlockMoveBackward {
+  0% {
+    left: calc(100% + 80px);
+    top: 25%;
+    transform: rotate(10deg);
+  }
+  50% {
+    left: 50%;
+    top: 50%;
+    transform: rotate(-15deg) scale(1.1);
+  }
+  100% {
+    left: -80px;
+    top: 15%;
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes eraserDustFly {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(calc(var(--dx, 15px)), calc(var(--dy, -20px))) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(calc(var(--dx, 30px) * 1.5), calc(var(--dy, -40px) * 1.5)) scale(0);
+    opacity: 0;
+  }
 }
 
 .eraser-overlay {
@@ -186,99 +290,122 @@ html, body {
   z-index: 1000;
   pointer-events: none;
 }
-.eraser-overlay.forward { animation: eraserWipeForward 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.eraser-overlay.backward { animation: eraserWipeBackward 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+.eraser-overlay.forward {
+  animation: eraserWipeForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.eraser-overlay.backward {
+  animation: eraserWipeBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 
 .eraser-tool {
   position: absolute;
-  width: 60px;
-  height: 30px;
+  width: 70px;
+  height: 38px;
   background: #ff5e97;
-  border: 2px solid #1e1b18;
-  border-radius: 6px;
+  border: 2.5px solid #1e1b18;
+  border-radius: 6px 12px 6px 12px;
+  box-shadow: 4px 4px 0px #1e1b18;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-cray);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: white;
   z-index: 1001;
   pointer-events: none;
 }
-.eraser-tool.forward { animation: eraserBlockMoveForward 0.5s ease forwards; }
-@keyframes eraserBlockMoveForward {
-  0% { left: -60px; top: 20%; transform: rotate(-10deg); }
-  100% { left: calc(100% + 60px); top: 30%; transform: rotate(10deg); }
+
+.eraser-tool::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: #3ba4ff;
+  border-right: 2px solid #1e1b18;
+  border-radius: 3px 0 0 3px;
 }
 
-/* Animations */
-@keyframes pulse-pop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+.eraser-tool.forward {
+  animation: eraserBlockMoveForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-.pop-pulse { animation: pulse-pop 2s ease-in-out infinite; }
 
-/* Custom Scrollbar */
+.eraser-tool.backward {
+  animation: eraserBlockMoveBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.dust-particle {
+  position: absolute;
+  background: #d5cbba;
+  border: 1px solid #1e1b18;
+  border-radius: 50%;
+  animation: eraserDustFly 0.45s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar for cartoon look */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: #f1ebd9;
-  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--tangy-orange);
-  border: 1px solid var(--ink-black);
-  border-radius: 6px;
+  border: 1.5px solid var(--ink-black);
+  border-radius: 10px;
 }
 
 /* =========================================================
-   PERFECT MOBILE VIEWPORT-FIT SYSTEM (NO CLIPPING, NO CROP)
+   PORTRAIT MOBILE DISPLAY RULES ONLY (Orientation: Portrait)
    ========================================================= */
+@media (max-width: 768px) and (orientation: portrait) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
-@media (max-width: 768px) {
-  /* Dynamic typography */
+  .slide-container-card {
+    height: auto !important;
+    max-height: none !important;
+    padding: 14px 10px !important;
+    border-radius: 16px !important;
+    box-shadow: 4px 4px 0px #1e1b18 !important;
+    margin-bottom: 75px !important;
+  }
+
   .mobile-h1 {
-    font-size: 1.25rem !important;
-    line-height: 1.15 !important;
-  }
-  .mobile-h2 {
-    font-size: 1.05rem !important;
-    line-height: 1.15 !important;
-  }
-  .mobile-h3 {
-    font-size: 0.88rem !important;
-  }
-  .mobile-text-sm {
-    font-size: 0.78rem !important;
-    line-height: 1.25 !important;
+    font-size: 1.6rem !important;
+    line-height: 1.2 !important;
   }
 
-  /* Grid scaling */
+  .mobile-h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .mobile-h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .mobile-text-sm {
+    font-size: 0.85rem !important;
+  }
+
   .mobile-stack {
     grid-template-columns: 1fr !important;
-    gap: 6px !important;
-  }
-
-  .mobile-grid-2 {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 4px !important;
-  }
-
-  .mobile-grid-3 {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 4px !important;
+    gap: 10px !important;
   }
 
   .mobile-scroll-x {
     display: flex !important;
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
     white-space: nowrap !important;
-    padding-bottom: 2px !important;
-    gap: 4px !important;
+    padding-bottom: 4px !important;
   }
 
   .mobile-hide {
