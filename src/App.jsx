@@ -6,6 +6,7 @@ import {
 import confetti from 'canvas-confetti';
 import { DoodlerToolbar } from './components/DoodlerToolbar';
 import { TutorialModal } from './components/TutorialModal';
+import { RotateDevicePrompt } from './components/RotateDevicePrompt';
 import { 
   Slide1, Slide2, Slide3, Slide4, Slide5, 
   Slide6, Slide7, Slide8, Slide9, Slide10, 
@@ -386,6 +387,9 @@ export default function App() {
         isOpen={showTutorial}
         onClose={() => setShowTutorial(false)}
       />
+
+      {/* Rotate to Landscape Prompt for Portrait Phones */}
+      <RotateDevicePrompt />
 
       {/* Presenter Notes Overlay Drawer */}
       {showPresenterNotes && (

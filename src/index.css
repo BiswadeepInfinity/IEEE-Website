@@ -457,6 +457,57 @@ body {
   animation: scientistPeekLeft 4.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
+/* =========================================================
+   MOBILE ROTATE TO LANDSCAPE OVERLAY (Strictly portrait phones)
+   ========================================================= */
+.rotate-device-overlay {
+  display: none;
+}
+
+@media (max-width: 800px) and (orientation: portrait) {
+  .rotate-device-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(248, 244, 233, 0.96);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+}
+
+@keyframes phoneRotateAnim {
+  0%, 15% {
+    transform: rotate(0deg);
+  }
+  50%, 85% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.rotating-phone-icon {
+  animation: phoneRotateAnim 2.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  display: inline-block;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spinSlow 4s linear infinite;
+}
+
 /* Custom Scrollbar for cartoon look */
 ::-webkit-scrollbar {
   width: 10px;
