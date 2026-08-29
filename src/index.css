@@ -25,73 +25,71 @@
 
 html, body {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   background-color: #f7f3e8;
   color: var(--ink-black);
   font-family: var(--font-comic);
-  overflow-x: hidden;
+  overflow: hidden; /* App level viewport lock so container handles internal fitting */
 }
 
 /* Base Sketch Boxes */
 .sketch-box {
   background: var(--paper-cream);
-  border: 2.5px solid var(--ink-black);
-  border-radius: 16px;
-  box-shadow: 4px 4px 0px var(--ink-black);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-yellow {
   background: #fff8d6;
-  border: 2.5px solid var(--ink-black);
-  border-radius: 16px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-blue {
   background: #e8f5ff;
-  border: 2.5px solid var(--ink-black);
-  border-radius: 16px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-pink {
   background: #ffe8f2;
-  border: 2.5px solid var(--ink-black);
-  border-radius: 16px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-green {
   background: #e6fcf2;
-  border: 2.5px solid var(--ink-black);
-  border-radius: 16px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-box-purple {
   background: #f4ecff;
-  border: 2.5px solid var(--ink-black);
-  border-radius: 16px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  border: 2px solid var(--ink-black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0px var(--ink-black);
 }
 
 .sketch-btn {
   font-family: var(--font-sketch);
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   background: var(--sunny-yellow);
   color: var(--ink-black);
   border: 2px solid var(--ink-black);
-  border-radius: 12px;
-  padding: 6px 12px;
+  border-radius: 10px;
+  padding: 5px 10px;
   cursor: pointer;
   box-shadow: 2px 2px 0px var(--ink-black);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   touch-action: manipulation;
-  transition: transform 0.15s ease;
 }
 
 .sketch-btn:active {
@@ -102,12 +100,12 @@ html, body {
 .sketch-badge {
   font-family: var(--font-cray);
   display: inline-block;
-  padding: 2px 8px;
+  padding: 2px 6px;
   border: 1.5px dashed var(--ink-black);
   background: white;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .doodle-underline {
@@ -132,8 +130,8 @@ html, body {
   top: -8px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
-  width: 60px;
-  height: 18px;
+  width: 50px;
+  height: 16px;
   background: rgba(255, 235, 130, 0.75);
   border-left: 1.5px dashed rgba(0,0,0,0.2);
   border-right: 1.5px dashed rgba(0,0,0,0.2);
@@ -143,11 +141,11 @@ html, body {
 .paperclip {
   position: absolute;
   top: -10px;
-  left: 20px;
-  width: 14px;
-  height: 28px;
-  border: 2.5px solid #666;
-  border-radius: 8px 8px 0 0;
+  left: 18px;
+  width: 12px;
+  height: 24px;
+  border: 2px solid #666;
+  border-radius: 6px 6px 0 0;
   z-index: 6;
 }
 
@@ -164,19 +162,6 @@ html, body {
   pointer-events: auto;
   cursor: crosshair;
 }
-
-/* Animations */
-@keyframes scribble-float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
-}
-.float-wiggle { animation: scribble-float 3s ease-in-out infinite; }
-
-@keyframes pulse-pop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
-.pop-pulse { animation: pulse-pop 2s ease-in-out infinite; }
 
 /* Eraser Transition */
 @keyframes eraserWipeForward {
@@ -206,8 +191,8 @@ html, body {
 
 .eraser-tool {
   position: absolute;
-  width: 65px;
-  height: 34px;
+  width: 60px;
+  height: 30px;
   background: #ff5e97;
   border: 2px solid #1e1b18;
   border-radius: 6px;
@@ -215,7 +200,7 @@ html, body {
   align-items: center;
   justify-content: center;
   font-family: var(--font-cray);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
   color: white;
   z-index: 1001;
@@ -223,120 +208,68 @@ html, body {
 }
 .eraser-tool.forward { animation: eraserBlockMoveForward 0.5s ease forwards; }
 @keyframes eraserBlockMoveForward {
-  0% { left: -70px; top: 20%; transform: rotate(-10deg); }
-  100% { left: calc(100% + 70px); top: 30%; transform: rotate(10deg); }
+  0% { left: -60px; top: 20%; transform: rotate(-10deg); }
+  100% { left: calc(100% + 60px); top: 30%; transform: rotate(10deg); }
 }
 
-/* Scroll Prompt / Floating Hint */
-@keyframes bounceDown {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(6px); }
-  60% { transform: translateY(3px); }
+/* Animations */
+@keyframes pulse-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
 }
+.pop-pulse { animation: pulse-pop 2s ease-in-out infinite; }
 
-.scroll-indicator-cue {
-  animation: bounceDown 1.8s infinite;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--sunny-yellow);
-  border: 1.5px solid var(--ink-black);
-  border-radius: 20px;
-  padding: 3px 8px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  box-shadow: 2px 2px 0px var(--ink-black);
-  cursor: pointer;
-}
-
-/* Custom Visible Cartoon Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #f1ebd9;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--tangy-orange);
-  border: 1.5px solid var(--ink-black);
-  border-radius: 8px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--crimson-red);
+  border: 1px solid var(--ink-black);
+  border-radius: 6px;
 }
 
 /* =========================================================
-   DESKTOP VS SMARTPHONE SCALING & ZOOM RULES
+   PERFECT MOBILE VIEWPORT-FIT SYSTEM (NO CLIPPING, NO CROP)
    ========================================================= */
 
-/* Desktop / Laptop */
-@media (min-width: 769px) {
-  .slide-container-card {
-    width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    max-height: 740px;
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-}
-
-/* Smartphones (iPhone, Android, Portrait Viewports) */
 @media (max-width: 768px) {
-  /* Prevent horizontal cutoffs and scale content proportionally */
-  .mobile-slide-scaler {
-    width: 100% !important;
-    max-width: 480px !important;
-    margin: 0 auto !important;
-    padding: 6px 4px !important;
-  }
-
-  .slide-container-card {
-    width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-    padding: 14px 10px !important;
-    border-radius: 14px !important;
-    border-width: 2.5px !important;
-    box-shadow: 4px 4px 0px #1e1b18 !important;
-    margin-bottom: 75px !important;
-  }
-
-  /* Responsive typography */
+  /* Dynamic typography */
   .mobile-h1 {
-    font-size: 1.35rem !important;
-    line-height: 1.18 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.15 !important;
   }
   .mobile-h2 {
-    font-size: 1.1rem !important;
-    line-height: 1.18 !important;
+    font-size: 1.05rem !important;
+    line-height: 1.15 !important;
   }
   .mobile-h3 {
-    font-size: 0.95rem !important;
+    font-size: 0.88rem !important;
   }
   .mobile-text-sm {
-    font-size: 0.82rem !important;
-    line-height: 1.3 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
   }
 
-  /* Stack columns cleanly without reducing content */
+  /* Grid scaling */
   .mobile-stack {
     grid-template-columns: 1fr !important;
-    gap: 8px !important;
+    gap: 6px !important;
   }
 
   .mobile-grid-2 {
     grid-template-columns: 1fr 1fr !important;
-    gap: 6px !important;
+    gap: 4px !important;
   }
 
   .mobile-grid-3 {
     grid-template-columns: 1fr 1fr !important;
-    gap: 6px !important;
+    gap: 4px !important;
   }
 
   .mobile-scroll-x {
@@ -344,7 +277,7 @@ html, body {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap !important;
-    padding-bottom: 4px !important;
+    padding-bottom: 2px !important;
     gap: 4px !important;
   }
 
