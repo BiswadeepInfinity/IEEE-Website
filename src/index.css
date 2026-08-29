@@ -5,9 +5,10 @@
   --font-cray: 'Gloria Hallelujah', cursive, sans-serif;
   --font-doodle: 'Caveat', cursive, sans-serif;
 
-  /* Vibrant Sketch Palette */
+  /* Vibrant Sketch / Cartoon Color Palette */
   --ink-black: #1e1b18;
   --paper-cream: #fffdf7;
+  --paper-pattern: #f5f0e3;
   --sunny-yellow: #ffdf40;
   --electric-blue: #3ba4ff;
   --crayon-pink: #ff5e97;
@@ -15,6 +16,10 @@
   --tangy-orange: #ff7828;
   --grape-purple: #9d5cff;
   --crimson-red: #ff334b;
+  --pencil-lead: #524b43;
+  --sketch-shadow: rgba(30, 27, 24, 0.95);
+  --sketch-shadow-soft: rgba(30, 27, 24, 0.15);
+  --paper-grid: #e2dac9;
 }
 
 * {
@@ -27,99 +32,103 @@
 body {
   background-color: #f7f3e8;
   background-image: 
-    radial-gradient(#e2dac9 1.5px, transparent 1.5px),
+    radial-gradient(var(--paper-grid) 1.5px, transparent 1.5px),
     linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
   background-size: 24px 24px, 12px 12px, 12px 12px;
   color: var(--ink-black);
   font-family: var(--font-comic);
   min-height: 100vh;
-  min-height: 100dvh;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
 /* Wobbly sketch borders & Cartoon Shadows */
 .sketch-box {
   background: var(--paper-cream);
-  border: 3px solid var(--ink-black);
+  border: 3.5px solid var(--ink-black);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 6px 6px 0px var(--sketch-shadow);
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .sketch-box:hover {
-  box-shadow: 6px 6px 0px var(--ink-black);
-  transform: translate(-1px, -1px);
+  box-shadow: 8px 8px 0px var(--sketch-shadow);
+  transform: translate(-2px, -2px) rotate(0.3deg);
 }
 
 .sketch-box-yellow {
   background: #fff8d6;
-  border: 3px solid var(--ink-black);
+  border: 3.5px solid var(--ink-black);
   border-radius: 20px 245px 20px 255px/240px 20px 250px 20px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 5px 5px 0px var(--ink-black);
 }
 
 .sketch-box-blue {
   background: #e8f5ff;
-  border: 3px solid var(--ink-black);
+  border: 3.5px solid var(--ink-black);
   border-radius: 250px 20px 240px 20px/20px 245px 20px 255px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 5px 5px 0px var(--ink-black);
 }
 
 .sketch-box-pink {
   background: #ffe8f2;
-  border: 3px solid var(--ink-black);
+  border: 3.5px solid var(--ink-black);
   border-radius: 255px 20px 225px 15px/15px 225px 20px 255px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 5px 5px 0px var(--ink-black);
 }
 
 .sketch-box-green {
   background: #e6fcf2;
-  border: 3px solid var(--ink-black);
+  border: 3.5px solid var(--ink-black);
   border-radius: 20px 255px 20px 240px/250px 20px 245px 20px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 5px 5px 0px var(--ink-black);
 }
 
 .sketch-box-purple {
   background: #f4ecff;
-  border: 3px solid var(--ink-black);
+  border: 3.5px solid var(--ink-black);
   border-radius: 245px 18px 230px 22px/22px 235px 18px 250px;
-  box-shadow: 4px 4px 0px var(--ink-black);
+  box-shadow: 5px 5px 0px var(--ink-black);
 }
 
 .sketch-btn {
   font-family: var(--font-sketch);
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
   background: var(--sunny-yellow);
   color: var(--ink-black);
-  border: 2.5px solid var(--ink-black);
+  border: 3px solid var(--ink-black);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  padding: 8px 16px;
+  padding: 10px 22px;
   cursor: pointer;
-  box-shadow: 3px 3px 0px var(--ink-black);
+  box-shadow: 4px 4px 0px var(--ink-black);
   transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  touch-action: manipulation;
+  gap: 8px;
+}
+
+.sketch-btn:hover {
+  transform: translate(-2px, -2px) scale(1.03);
+  box-shadow: 6px 6px 0px var(--ink-black);
 }
 
 .sketch-btn:active {
-  transform: translate(2px, 2px);
+  transform: translate(3px, 3px);
   box-shadow: 1px 1px 0px var(--ink-black);
 }
 
 .sketch-badge {
   font-family: var(--font-cray);
   display: inline-block;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border: 2px dashed var(--ink-black);
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
+  transform: rotate(-2deg);
   font-weight: bold;
-  font-size: 0.85rem;
 }
 
 .doodle-underline {
@@ -130,24 +139,25 @@ body {
 .doodle-underline::after {
   content: '';
   position: absolute;
-  left: -2px;
-  right: -2px;
+  left: -4px;
+  right: -4px;
   bottom: 0px;
-  height: 5px;
+  height: 6px;
   background: var(--sunny-yellow);
   z-index: -1;
-  border-radius: 3px;
+  border-radius: 4px;
+  transform: rotate(-1deg);
 }
 
 .tape-top {
   position: absolute;
-  top: -10px;
+  top: -14px;
   left: 50%;
   transform: translateX(-50%) rotate(-3deg);
-  width: 70px;
-  height: 20px;
+  width: 90px;
+  height: 24px;
   background: rgba(255, 235, 130, 0.7);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   border-left: 2px dashed rgba(0,0,0,0.2);
   border-right: 2px dashed rgba(0,0,0,0.2);
   z-index: 10;
@@ -155,20 +165,20 @@ body {
 
 .paperclip {
   position: absolute;
-  top: -12px;
-  left: 30px;
-  width: 16px;
-  height: 32px;
-  border: 3px solid #666;
-  border-radius: 10px 10px 0 0;
+  top: -15px;
+  right: 25px;
+  width: 20px;
+  height: 40px;
+  border: 3.5px solid #666;
+  border-radius: 12px 12px 0 0;
   z-index: 12;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 /* Animations */
 @keyframes scribble-float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(0.8deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
 }
 
 .float-wiggle {
@@ -177,13 +187,14 @@ body {
 
 @keyframes pulse-pop {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
+  50% { transform: scale(1.06); }
 }
 
 .pop-pulse {
   animation: pulse-pop 2s ease-in-out infinite;
 }
 
+/* Sound and drawing canvas controls */
 .slide-canvas {
   position: absolute;
   top: 0;
@@ -198,7 +209,9 @@ body {
   cursor: crosshair;
 }
 
-/* Eraser Transition */
+/* =========================================================
+   ERASER WIPE TRANSITION EFFECT & DUST PARTICLES
+   ========================================================= */
 @keyframes eraserWipeForward {
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -231,35 +244,55 @@ body {
 
 @keyframes eraserBlockMoveForward {
   0% {
-    left: -80px;
-    top: 15%;
+    left: -120px;
+    top: 10%;
     transform: rotate(-15deg);
   }
+  25% {
+    left: 25%;
+    top: 60%;
+    transform: rotate(18deg) scale(1.1);
+  }
   50% {
-    left: 50%;
-    top: 50%;
+    left: 55%;
+    top: 20%;
+    transform: rotate(-20deg) scale(1.15);
+  }
+  75% {
+    left: 80%;
+    top: 70%;
     transform: rotate(15deg) scale(1.1);
   }
   100% {
-    left: calc(100% + 80px);
-    top: 25%;
+    left: calc(100% + 120px);
+    top: 30%;
     transform: rotate(-10deg);
   }
 }
 
 @keyframes eraserBlockMoveBackward {
   0% {
-    left: calc(100% + 80px);
-    top: 25%;
+    left: calc(100% + 120px);
+    top: 30%;
     transform: rotate(10deg);
   }
+  25% {
+    left: 75%;
+    top: 70%;
+    transform: rotate(-18deg) scale(1.1);
+  }
   50% {
-    left: 50%;
-    top: 50%;
+    left: 45%;
+    top: 20%;
+    transform: rotate(20deg) scale(1.15);
+  }
+  75% {
+    left: 20%;
+    top: 65%;
     transform: rotate(-15deg) scale(1.1);
   }
   100% {
-    left: -80px;
+    left: -120px;
     top: 15%;
     transform: rotate(15deg);
   }
@@ -271,11 +304,11 @@ body {
     opacity: 0.9;
   }
   50% {
-    transform: translate(calc(var(--dx, 15px)), calc(var(--dy, -20px))) scale(1.1);
+    transform: translate(calc(var(--dx, 20px)), calc(var(--dy, -30px))) scale(1.2);
     opacity: 0.8;
   }
   100% {
-    transform: translate(calc(var(--dx, 30px) * 1.5), calc(var(--dy, -40px) * 1.5)) scale(0);
+    transform: translate(calc(var(--dx, 40px) * 1.5), calc(var(--dy, -60px) * 1.5)) scale(0);
     opacity: 0;
   }
 }
@@ -292,26 +325,26 @@ body {
 }
 
 .eraser-overlay.forward {
-  animation: eraserWipeForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserWipeForward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .eraser-overlay.backward {
-  animation: eraserWipeBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserWipeBackward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .eraser-tool {
   position: absolute;
-  width: 70px;
-  height: 38px;
+  width: 90px;
+  height: 48px;
   background: #ff5e97;
-  border: 2.5px solid #1e1b18;
-  border-radius: 6px 12px 6px 12px;
-  box-shadow: 4px 4px 0px #1e1b18;
+  border: 3.5px solid #1e1b18;
+  border-radius: 8px 16px 8px 16px;
+  box-shadow: 6px 6px 0px #1e1b18;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-cray);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 800;
   color: white;
   z-index: 1001;
@@ -324,18 +357,18 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 24px;
+  width: 32px;
   background: #3ba4ff;
-  border-right: 2px solid #1e1b18;
-  border-radius: 3px 0 0 3px;
+  border-right: 3px solid #1e1b18;
+  border-radius: 4px 0 0 4px;
 }
 
 .eraser-tool.forward {
-  animation: eraserBlockMoveForward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserBlockMoveForward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .eraser-tool.backward {
-  animation: eraserBlockMoveBackward 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: eraserBlockMoveBackward 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .dust-particle {
@@ -343,72 +376,98 @@ body {
   background: #d5cbba;
   border: 1px solid #1e1b18;
   border-radius: 50%;
-  animation: eraserDustFly 0.45s ease-out forwards;
+  animation: eraserDustFly 0.5s ease-out forwards;
   pointer-events: none;
+}
+
+/* =========================================================
+   SCIENTIST PEEK-A-BOO ANIMATION BEHIND BOARD
+   ========================================================= */
+@keyframes scientistPeekRight {
+  0% {
+    right: -120px;
+    transform: translateY(0) rotate(8deg) scale(0.85);
+    opacity: 0;
+  }
+  15% {
+    right: -42px;
+    transform: translateY(-8px) rotate(4deg) scale(1.05);
+    opacity: 1;
+  }
+  35% {
+    right: -30px;
+    transform: translateY(-12px) rotate(2deg) scale(1.1);
+    opacity: 1;
+  }
+  65% {
+    right: -32px;
+    transform: translateY(-8px) rotate(4deg) scale(1.08);
+    opacity: 1;
+  }
+  85% {
+    right: -45px;
+    transform: translateY(-4px) rotate(2deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    right: -130px;
+    transform: translateY(0) rotate(12deg) scale(0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes scientistPeekLeft {
+  0% {
+    left: -120px;
+    transform: translateY(0) rotate(-8deg) scale(0.85);
+    opacity: 0;
+  }
+  15% {
+    left: -42px;
+    transform: translateY(-8px) rotate(-4deg) scale(1.05);
+    opacity: 1;
+  }
+  35% {
+    left: -30px;
+    transform: translateY(-12px) rotate(-2deg) scale(1.1);
+    opacity: 1;
+  }
+  65% {
+    left: -32px;
+    transform: translateY(-8px) rotate(-4deg) scale(1.08);
+    opacity: 1;
+  }
+  85% {
+    left: -45px;
+    transform: translateY(-4px) rotate(-2deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    left: -130px;
+    transform: translateY(0) rotate(-12deg) scale(0.85);
+    opacity: 0;
+  }
+}
+
+.peek-scientist-right {
+  animation: scientistPeekRight 4.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.peek-scientist-left {
+  animation: scientistPeekLeft 4.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 /* Custom Scrollbar for cartoon look */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #f1ebd9;
+  border-left: 2px solid var(--ink-black);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--tangy-orange);
-  border: 1.5px solid var(--ink-black);
+  border: 2px solid var(--ink-black);
   border-radius: 10px;
-}
-
-/* =========================================================
-   PORTRAIT MOBILE DISPLAY RULES ONLY (Orientation: Portrait)
-   ========================================================= */
-@media (max-width: 768px) and (orientation: portrait) {
-  body {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .slide-container-card {
-    height: auto !important;
-    max-height: none !important;
-    padding: 14px 10px !important;
-    border-radius: 16px !important;
-    box-shadow: 4px 4px 0px #1e1b18 !important;
-    margin-bottom: 75px !important;
-  }
-
-  .mobile-h1 {
-    font-size: 1.6rem !important;
-    line-height: 1.2 !important;
-  }
-
-  .mobile-h2 {
-    font-size: 1.25rem !important;
-  }
-
-  .mobile-h3 {
-    font-size: 1.05rem !important;
-  }
-
-  .mobile-text-sm {
-    font-size: 0.85rem !important;
-  }
-
-  .mobile-stack {
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  .mobile-scroll-x {
-    display: flex !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-    padding-bottom: 4px !important;
-  }
-
-  .mobile-hide {
-    display: none !important;
-  }
 }
