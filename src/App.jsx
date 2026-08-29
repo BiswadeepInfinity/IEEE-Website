@@ -32,30 +32,23 @@ export default function App() {
   const canvasRef = useRef(null);
   const isPaintingRef = useRef(false);
 
-  // Dynamic diagonal & viewport aspect ratio fit calculator
+  // Dynamic Scale & Zoom to fit viewport
   useEffect(() => {
     const calculateDynamicFit = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       
-      // Calculate screen diagonal in pixels
-      const diagonal = Math.sqrt(vw * vw + vh * vh);
-
-      // Target virtual presentation canvas dimensions
       const targetWidth = 1180;
       const targetHeight = 680;
 
-      // Available presentation stage area
-      const availableWidth = vw - 24;
-      const availableHeight = vh - 130; // Accounting for 60px header + 60px footer + padding
+      const availableWidth = vw - (vw < 800 ? 12 : 24);
+      const availableHeight = vh - (vh < 500 ? 90 : 130);
 
-      // Uniform aspect-ratio scaling to guarantee zero overflow
       const scaleX = availableWidth / targetWidth;
       const scaleY = availableHeight / targetHeight;
       const calculatedScale = Math.min(scaleX, scaleY, 1.05);
 
-      // Safe bounds (scale down to 0.45x for small phone screens, max 1.05x on large monitors)
-      setScaleFactor(Math.max(0.42, calculatedScale));
+      setScaleFactor(Math.max(0.35, calculatedScale));
     };
 
     calculateDynamicFit();
@@ -240,49 +233,50 @@ export default function App() {
       background: '#f8f4e9',
       overflow: 'hidden'
     }}>
-      {/* Top Header */}
+      {/* Top Header - Single Sleek Horizontal Flex Row */}
       <header style={{
-        height: '56px',
-        padding: '0 16px',
+        height: '48px',
+        padding: '0 12px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: '3px solid #1e1b18',
+        borderBottom: '2.5px solid #1e1b18',
         background: '#fffdf7',
         zIndex: 50,
-        boxShadow: '0 3px 0px rgba(30, 27, 24, 0.1)',
-        flexShrink: 0
+        boxShadow: '0 2px 0px rgba(30, 27, 24, 0.1)',
+        flexShrink: 0,
+        overflow: 'hidden'
       }}>
         {/* Logo & University Branding */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
           <div style={{
             background: '#fff',
-            padding: '3px 8px',
-            borderRadius: '8px',
-            border: '2px solid #1e1b18',
-            boxShadow: '2px 2px 0px #1e1b18',
+            padding: '2px 6px',
+            borderRadius: '6px',
+            border: '1.5px solid #1e1b18',
+            boxShadow: '1.5px 1.5px 0px #1e1b18',
             display: 'flex',
             alignItems: 'center',
-            height: '38px'
+            height: '32px'
           }}>
             <img 
               src="/uttaranchal-logo.svg" 
               alt="Uttaranchal University" 
-              style={{ height: '30px', width: 'auto' }} 
+              style={{ height: '24px', width: 'auto', display: 'block' }} 
             />
           </div>
 
-          <div className="sketch-badge" style={{ background: '#3ba4ff', color: '#fff', fontSize: '0.85rem', padding: '3px 8px' }}>
-            ✏️ IEEE STUDENT BRANCH
+          <div className="sketch-badge" style={{ background: '#3ba4ff', color: '#fff', fontSize: '0.72rem', padding: '2px 6px', whiteSpace: 'nowrap' }}>
+            IEEE UU-SB
           </div>
 
-          <span className="mobile-hide" style={{ fontFamily: 'var(--font-cray)', fontSize: '1.05rem', color: '#1e1b18', marginLeft: '4px' }}>
+          <span className="mobile-hide" style={{ fontFamily: 'var(--font-cray)', fontSize: '0.95rem', color: '#1e1b18', marginLeft: '4px', whiteSpace: 'nowrap' }}>
             {slidesData[currentSlide].title}
           </span>
         </div>
 
-        {/* Toolbar Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        {/* Header Action Controls */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
           <DoodlerToolbar
             isDrawing={isDrawing}
             setIsDrawing={setIsDrawing}
@@ -294,40 +288,40 @@ export default function App() {
           <button
             onClick={() => setShowTutorial(true)}
             className="sketch-btn"
-            style={{ padding: '5px 10px', fontSize: '0.8rem', background: '#ffe8f2', color: '#ff334b' }}
+            style={{ padding: '3px 6px', fontSize: '0.75rem', background: '#ffe8f2', color: '#ff334b', whiteSpace: 'nowrap' }}
             title="Guide"
           >
-            <QuestionIcon size={14} /> Guide
+            <QuestionIcon size={13} /> Guide
           </button>
 
           <button
             onClick={() => setShowOverview(true)}
             className="sketch-btn"
-            style={{ padding: '5px 10px', fontSize: '0.8rem', background: '#e8f5ff' }}
+            style={{ padding: '3px 6px', fontSize: '0.75rem', background: '#e8f5ff', whiteSpace: 'nowrap' }}
             title="Overview"
           >
-            <Grid size={14} /> ({currentSlide + 1}/15)
+            <Grid size={13} /> ({currentSlide + 1}/15)
           </button>
 
           <button
             onClick={() => setShowPresenterNotes(!showPresenterNotes)}
             className="sketch-btn mobile-hide"
-            style={{ padding: '5px 10px', fontSize: '0.8rem', background: showPresenterNotes ? '#ff5e97' : '#fff', color: showPresenterNotes ? '#fff' : '#1e1b18' }}
+            style={{ padding: '3px 6px', fontSize: '0.75rem', background: showPresenterNotes ? '#ff5e97' : '#fff', color: showPresenterNotes ? '#fff' : '#1e1b18', whiteSpace: 'nowrap' }}
           >
-            <BookOpen size={14} /> Notes
+            <BookOpen size={13} /> Notes
           </button>
 
           <button
             onClick={toggleFullscreen}
             className="sketch-btn mobile-hide"
-            style={{ padding: '5px 8px', fontSize: '0.8rem', background: '#fff' }}
+            style={{ padding: '3px 6px', fontSize: '0.75rem', background: '#fff' }}
           >
-            {isFullscreen ? <Minimize size={14} /> : <Maximize size={14} />}
+            {isFullscreen ? <Minimize size={13} /> : <Maximize size={13} />}
           </button>
         </div>
       </header>
 
-      {/* Dynamic Viewport Stage Container */}
+      {/* Main Viewport Stage Container */}
       <main style={{
         flex: 1,
         display: 'flex',
@@ -338,16 +332,15 @@ export default function App() {
         width: '100%',
         height: '100%'
       }}>
-        {/* Dynamic Scale Wrapper: Automatically scales card based on calculated diagonal & dimensions */}
+        {/* Dynamic Scale Wrapper */}
         <div style={{
           transform: `scale(${scaleFactor})`,
           transformOrigin: 'center center',
-          transition: 'transform 0.15s ease-out',
+          transition: 'transform 0.12s ease-out',
           flexShrink: 0
         }}>
-          {/* The Slide Paper Card with 100% Original Desktop Geometry */}
+          {/* Slide Paper Card */}
           <div 
-            className="slide-container-card"
             style={{
               width: '1180px',
               height: '680px',
@@ -412,13 +405,13 @@ export default function App() {
 
       {/* Bottom Floating Navigation Bar */}
       <footer style={{
-        height: '56px',
-        padding: '0 20px',
+        height: '48px',
+        padding: '0 16px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         background: '#fffdf7',
-        borderTop: '3px solid #1e1b18',
+        borderTop: '2.5px solid #1e1b18',
         zIndex: 50,
         flexShrink: 0
       }}>
@@ -430,16 +423,16 @@ export default function App() {
             opacity: currentSlide === 0 ? 0.4 : 1,
             cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
             background: '#ffdf40',
-            padding: '6px 14px',
-            fontSize: '0.85rem'
+            padding: '4px 10px',
+            fontSize: '0.8rem'
           }}
         >
-          <ChevronLeft size={18} /> Prev
+          <ChevronLeft size={16} /> Prev
         </button>
 
         {/* Slide Progress Dots & University Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {slidesData.map((_, idx) => (
               <button
                 key={idx}
@@ -449,11 +442,11 @@ export default function App() {
                   }
                 }}
                 style={{
-                  width: currentSlide === idx ? '26px' : '12px',
-                  height: '12px',
-                  borderRadius: '6px',
+                  width: currentSlide === idx ? '20px' : '9px',
+                  height: '9px',
+                  borderRadius: '5px',
                   backgroundColor: currentSlide === idx ? '#ff334b' : '#d2c9b8',
-                  border: '2px solid #1e1b18',
+                  border: '1.5px solid #1e1b18',
                   cursor: 'pointer',
                   padding: 0,
                   transition: 'all 0.15s ease'
@@ -465,15 +458,15 @@ export default function App() {
 
           <div className="mobile-hide" style={{
             background: '#fff',
-            border: '2px solid #1e1b18',
+            border: '1.5px solid #1e1b18',
             borderRadius: '6px',
             padding: '2px 6px',
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
-            boxShadow: '1.5px 1.5px 0px #1e1b18'
+            boxShadow: '1px 1px 0px #1e1b18'
           }}>
-            <span style={{ fontFamily: 'var(--font-sketch)', fontSize: '0.75rem', fontWeight: 800, color: '#005a9c' }}>
+            <span style={{ fontFamily: 'var(--font-sketch)', fontSize: '0.72rem', fontWeight: 800, color: '#005a9c' }}>
               UU-SB
             </span>
           </div>
@@ -488,11 +481,11 @@ export default function App() {
             cursor: currentSlide === slidesData.length - 1 ? 'not-allowed' : 'pointer',
             background: '#2ecc71',
             color: '#fff',
-            padding: '6px 14px',
-            fontSize: '0.85rem'
+            padding: '4px 10px',
+            fontSize: '0.8rem'
           }}
         >
-          Next <ChevronRight size={18} />
+          Next <ChevronRight size={16} />
         </button>
       </footer>
 
@@ -509,25 +502,25 @@ export default function App() {
       {showPresenterNotes && (
         <div style={{
           position: 'fixed',
-          bottom: '70px',
+          bottom: '60px',
           left: '50%',
           transform: 'translateX(-50%)',
           width: '90%',
-          maxWidth: '850px',
+          maxWidth: '800px',
           background: '#fff8d6',
-          border: '3px solid #1e1b18',
-          borderRadius: '14px',
-          padding: '12px 20px',
-          boxShadow: '6px 6px 0px #1e1b18',
+          border: '2.5px solid #1e1b18',
+          borderRadius: '12px',
+          padding: '10px 16px',
+          boxShadow: '4px 4px 0px #1e1b18',
           zIndex: 800
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-            <span style={{ fontFamily: 'var(--font-cray)', fontSize: '1.05rem', color: '#ff334b' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <span style={{ fontFamily: 'var(--font-cray)', fontSize: '0.95rem', color: '#ff334b' }}>
               🎙️ Speaker Note for Slide {currentSlide + 1}:
             </span>
             <button onClick={() => setShowPresenterNotes(false)} className="sketch-badge" style={{ cursor: 'pointer' }}>✕</button>
           </div>
-          <p style={{ fontFamily: 'var(--font-comic)', fontSize: '1.05rem', fontWeight: 600, color: '#1e1b18' }}>
+          <p style={{ fontFamily: 'var(--font-comic)', fontSize: '0.95rem', fontWeight: 600, color: '#1e1b18' }}>
             {presenterNotes[currentSlide]}
           </p>
         </div>
@@ -546,33 +539,33 @@ export default function App() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '20px'
+          padding: '16px'
         }}>
           <div style={{
             background: '#f8f4e9',
             width: '95%',
-            maxWidth: '1000px',
+            maxWidth: '900px',
             maxHeight: '90vh',
-            borderRadius: '18px',
-            border: '3.5px solid #1e1b18',
-            padding: '20px',
+            borderRadius: '16px',
+            border: '3px solid #1e1b18',
+            padding: '16px',
             overflowY: 'auto',
-            boxShadow: '10px 10px 0px #1e1b18'
+            boxShadow: '8px 8px 0px #1e1b18'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <h2 style={{ fontFamily: 'var(--font-cray)', fontSize: '1.8rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <h2 style={{ fontFamily: 'var(--font-cray)', fontSize: '1.5rem' }}>
                 📑 All 15 Slides Overview
               </h2>
               <button
                 onClick={() => setShowOverview(false)}
                 className="sketch-btn"
-                style={{ background: '#ff334b', color: '#fff' }}
+                style={{ background: '#ff334b', color: '#fff', padding: '3px 8px', fontSize: '0.75rem' }}
               >
                 ✕
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '10px' }}>
               {slidesData.map((s, idx) => (
                 <div
                   key={idx}
@@ -584,17 +577,16 @@ export default function App() {
                   }}
                   className="sketch-box"
                   style={{
-                    padding: '10px',
+                    padding: '8px',
                     cursor: 'pointer',
                     background: currentSlide === idx ? '#ffdf40' : '#fff',
-                    border: currentSlide === idx ? '3px solid #ff334b' : '2px solid #1e1b18',
-                    transform: currentSlide === idx ? 'scale(1.03)' : 'none'
+                    border: currentSlide === idx ? '2.5px solid #ff334b' : '1.5px solid #1e1b18'
                   }}
                 >
-                  <span className="sketch-badge" style={{ fontSize: '0.75rem', marginBottom: '4px' }}>
+                  <span className="sketch-badge" style={{ fontSize: '0.68rem', marginBottom: '2px' }}>
                     Slide {idx + 1}
                   </span>
-                  <div style={{ fontWeight: 'bold', fontSize: '0.85rem', marginTop: '3px' }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '0.8rem', marginTop: '2px', lineHeight: 1.15 }}>
                     {s.title.replace(/Slide \d+: /, '')}
                   </div>
                 </div>
